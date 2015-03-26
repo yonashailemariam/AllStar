@@ -27,6 +27,8 @@ apt-get dist-upgrade -y
 # curl -L --output /usr/bin/rpi-update https://raw.githubusercontent.com/Hexxeh/rpi-update/master/rpi-update && chmod +x /usr/bin/rpi-update
 # rpi-update
 
+apt-get install ntpdate -y
+
 # Add re-generate SSL keys
 rm /etc/ssh/ssh_host_*
 dpkg-reconfigure openssh-server

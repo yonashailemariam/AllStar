@@ -14,13 +14,21 @@ apt-get dist-upgrade -y
 
 # Add re-generate SSL keys <--------------------------------
 
-# Install new kernel and matching headers
-apt-get install linux-image-3.12-1-rpi -y
-apt-get install linux-headers-3.12-1-rpi -y
+# Install 3.12  kernel and matching headers
+# apt-get install linux-image-3.12-1-rpi -y
+# apt-get install linux-headers-3.12-1-rpi -y
+
+# add to /boot/config.txt
+# cd /boot
+# patch < /srv/patches/patch-rpi1-3-12-config.txt
+
+# Install 3.18  kernel and matching headers
+apt-get install linux-image-3.18.0-trunk-rpi -y
+apt-get install linux-headers-3.18.0-trunk-rpi -y
 
 # add to /boot/config.txt
 cd /boot
-patch < /srv/patches/patch-rpi1-config.txt
+patch < /srv/patches/patch-rpi1-3-18-config.txt
 
 # change USB to USB 1.1
 patch < /srv/patches/patch-rpi1-cmdline.txt

@@ -26,11 +26,6 @@ root@pistar:/home/pi# passwd root
 	Enter new UNIX password: Your_very_secret_password
 	Retype new UNIX password: Your_very_secret_password
 
-# get scripts and patches
-root@pistar:/home/pi# cd /srv/
-root@pistar:/home/pi# wget https://github.com/N4IRS/AllStar/blob/master/platforms/rpi/rpi1/rpi1.tgz
-root@pistar:/home/pi# untar rpi1.tgz
-
 # run rpi1_allstar_asterisk_install.sh
 
 # edit /etc/asterisk/iax.conf
