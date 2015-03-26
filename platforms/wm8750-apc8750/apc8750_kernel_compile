@@ -1,6 +1,6 @@
 #! /bin/sh
 
-# Revision: .000000002
+# Revision: .000000003
 # refrenced from:
 
 # apt-get install ntp -y
