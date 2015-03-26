@@ -21,4 +21,11 @@ Copy the platform specific file to /srv
 
 IE: cp platforms/rpi/rpi2/* .
 
-More info to follow
+RPI 2 base image is at:
+
+https://images.collabora.co.uk/rpi2/jessie-rpi2-20150202.img.gz
+
+RPI 1 Base image is at:
+
+http://downloads.raspberrypi.org/raspbian/images/raspbian-2014-12-25/2014-12-24-wheezy-raspbian.zip
+
