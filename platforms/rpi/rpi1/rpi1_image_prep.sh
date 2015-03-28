@@ -23,12 +23,12 @@ apt-get dist-upgrade -y
 # patch < /srv/patches/patch-rpi1-3-12-config.txt
 
 # Install 3.18  kernel and matching headers
-apt-get install linux-image-3.18.0-trunk-rpi -y
-apt-get install linux-headers-3.18.0-trunk-rpi -y
+# apt-get install linux-image-3.18.0-trunk-rpi -y
+# apt-get install linux-headers-3.18.0-trunk-rpi -y
 
 # add to /boot/config.txt
 cd /boot
-patch < /srv/patches/patch-rpi1-3-18-config.txt
+# patch < /srv/patches/patch-rpi1-3-18-config.txt
 
 # change USB to USB 1.1
 patch < /srv/patches/patch-rpi1-cmdline.txt
@@ -57,5 +57,6 @@ passwd root
 # At least turn this into a patch
 # install ilbc
 # cp /srv/replaced/get_ilbc_source.sh ./contrib/scripts/get_ilbc_source.sh
+echo "REBOOT before you run the install script"
 
 
