@@ -8,6 +8,10 @@
 dpkg-reconfigure locales
 dpkg-reconfigure tzdata
 
+# keep raspberrypi-bootloader at current version.
+# Don't let it upgrade the kernel.
+echo "raspberrypi-bootloader hold" | dpkg --set-selections
+
 # Make sure we are running the latest and greatest
 apt-get update -y
 apt-get dist-upgrade -y
@@ -23,15 +27,16 @@ apt-get dist-upgrade -y
 # patch < /srv/patches/patch-rpi1-3-12-config.txt
 
 # Install 3.18  kernel and matching headers
-# apt-get install linux-image-3.18.0-trunk-rpi -y
-# apt-get install linux-headers-3.18.0-trunk-rpi -y
+apt-get install linux-image-3.18.0-trunk-rpi -y
+apt-get install linux-headers-3.18.0-trunk-rpi -y
 
 # add to /boot/config.txt
 cd /boot
-# patch < /srv/patches/patch-rpi1-3-18-config.txt
+patch < /srv/patches/patch-rpi1-3-18-config.txt
 
 # change USB to USB 1.1
-patch < /srv/patches/patch-rpi1-cmdline.txt
+# hold off on this
+# patch < /srv/patches/patch-rpi1-cmdline.txt
 
 # Raspberry Pi will show the DHCP assigned address.
 # Recomended:
