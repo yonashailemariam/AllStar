@@ -10,7 +10,8 @@ apt-get update
 apt-get upgrade
 
 # install the required tools
-apt-get install uboot-mkimage -y
+# apt-get install uboot-mkimage -y
+apt-get install u-boot-tools -y
 
 apt-get install libncurses5-dev -y
 apt-get install bc -y
