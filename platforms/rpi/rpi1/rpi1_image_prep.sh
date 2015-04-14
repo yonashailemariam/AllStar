@@ -1,12 +1,7 @@
 #! /bin/sh
 
-# Is there a version of this for the Raspberry Pi 1?
 # change governor to performance
 # echo performance > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
-
-# set the locales and time zone
-dpkg-reconfigure locales
-dpkg-reconfigure tzdata
 
 # keep raspberrypi-bootloader at current version.
 # Don't let it upgrade the kernel.
@@ -14,6 +9,7 @@ echo "raspberrypi-bootloader hold" | dpkg --set-selections
 
 # Make sure we are running the latest and greatest
 apt-get update -y
+apt-get purge --auto-remove 'libx11-.*'
 apt-get dist-upgrade -y
 
 # Add re-generate SSL keys <--------------------------------
@@ -34,6 +30,10 @@ apt-get install linux-headers-3.18.0-trunk-rpi -y
 cd /boot
 patch < /srv/patches/patch-rpi1-3-18-config.txt
 
+# set the locales and time zone
+dpkg-reconfigure locales
+dpkg-reconfigure tzdata
+
 # change USB to USB 1.1
 # hold off on this
 # patch < /srv/patches/patch-rpi1-cmdline.txt
@@ -50,8 +50,8 @@ patch < /srv/patches/patch-rpi1-3-18-config.txt
 # Password: Your_Secret_Password_From_Above
 
 # set the root password
-sudo -s
-passwd root
+# sudo -s
+# passwd root
 #	Enter new UNIX password: Your_very_secret_password
 #	Retype new UNIX password: Your_very_secret_password
 
