@@ -7,7 +7,7 @@
 ##############################################
 
 # this needs to be fixed so that if the version changes so does the cd
-cd /usr/src/astsrc-1.4.23-pre/dahdi-linux-complete-2.10.0.1+2.10.0.1/
+cd /usr/src/astsrc-1.4.23-pre/dahdi-linux-complete/
 
 # Patch dahdi for use with AllStar Asterisk
 # https://allstarlink.org/dude-dahdi-2.10.0.1-patches-20150306

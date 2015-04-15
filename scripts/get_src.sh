@@ -20,6 +20,7 @@ cd /usr/src/astsrc-1.4.23-pre
 rm -rf libpri
 rm -rf zaptel
 tar zxvf /srv/download/dahdi-linux-complete-current.tar.gz
+mv dahdi-linux-complete* dahdi-linux-complete
 
 # Get the kernel-headers for the running kernel
 apt-get install linux-headers-`uname -r` -y
