@@ -1,0 +1,6 @@
+To correctly build the chan_alsaradio driver, the following line needs to be added in channels/Makefile:
+
+chan_alsaradio.so: LIBS+=-lasound
+
+<http://yo3iiu.ro/blog/?p=315>
+
