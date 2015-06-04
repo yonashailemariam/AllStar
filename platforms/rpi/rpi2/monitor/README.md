@@ -32,6 +32,8 @@ at the cli prompt console dial
 
 You should have audio from the local speaker.
 
+console hangup to disconnect the monitor.
+
 use aumix to adjust speaker audio
 
 
