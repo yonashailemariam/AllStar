@@ -15,4 +15,4 @@ echo performance > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
 /srv/scripts/build_dahdi.sh
 /srv/scripts/build_asterisk.sh
 
-
+cp /platforms/rpi/rpi2_wheezy/rc.local /etc
