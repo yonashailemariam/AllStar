@@ -23,6 +23,7 @@ apt-get install linux-image-3.18.0-trunk-rpi2 -y
 apt-get install linux-headers-3.18.0-trunk-rpi2 -y
 
 # add to /boot/config.txt
+mount /dev/mmcblk0p1 /boot
 cd /boot
 patch < /srv/patches/patch-rpi2-3-18-config.txt
 
