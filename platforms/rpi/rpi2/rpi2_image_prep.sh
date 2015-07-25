@@ -12,22 +12,16 @@ echo performance > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
 dpkg-reconfigure locales
 dpkg-reconfigure tzdata
 
+cd /srv/download
+wget https://repositories.collabora.co.uk/debian/pool/rpi2/c/collabora-obs-archive-keyring/collabora-obs-archive-keyring_0.5+b1_all.deb
+dpkg -i collabora-obs-archive-keyring_0.5+b1_all.deb
+
 echo "deb http://mirrordirector.raspbian.org/raspbian/ jessie main contrib non-free rpi" >>/etc/apt/sources.list
 wget http://archive.raspbian.org/raspbian.public.key -O - | apt-key add -
 
 # Make sure we are running the latest and greatest
 apt-get update -y
 apt-get dist-upgrade -y
-
-# Install and run rpi-ipdate
-# apt-get install curl -y
-# apt-get install sudo -y
-# apt-get install binutils -y
-
-# curl -L --output /usr/bin/rpi-update https://raw.githubusercontent.com/Hexxeh/rpi-update/master/rpi-update && chmod +x /usr/bin/rpi-update
-# rpi-update
-
-apt-get install ntpdate -y
 
 # Add re-generate SSL keys
 rm /etc/ssh/ssh_host_*

@@ -1,10 +1,5 @@
 #! /bin/sh
 
-# install subversion and git
-# Already installed by build_tools
-# apt-get install git -y
-# apt-get install subversion -y
-
 cd /usr/src
 svn checkout http://svn.ohnosec.org/svn/projects/allstar/astsrc-1.4.23-pre/trunk astsrc-1.4.23-pre
 
@@ -12,6 +7,7 @@ svn checkout http://svn.ohnosec.org/svn/projects/allstar/astsrc-1.4.23-pre/trunk
 cd /usr/src/astsrc-1.4.23-pre
 svnversion >asterisk/.version
 
+mkdir -p /srv/download
 cd /srv/download
 wget http://downloads.asterisk.org/pub/telephony/dahdi-linux-complete/dahdi-linux-complete-current.tar.gz
 
