@@ -14,6 +14,9 @@ cd /usr/src/astsrc-1.4.23-pre/dahdi-linux-complete/
 # Soon to be included in the official release of DAHDI from Digium.
 patch -p1 < /srv/patches/patch-dahdi-dude-current
 
+# remove setting the owner to asterisk
+patch -p0 < /srv/patches/patch-dahdi.rules
+
 # Build and install dahdi
 make all
 make install
