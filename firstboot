@@ -12,7 +12,7 @@
 # Remove our firstboot service so that it won't run again
 update-rc.d firstboot remove
 
-Echo "Installing AllStar Asterisk, Please wait"
+echo "Installing AllStar Asterisk, Please wait"
 
 sleep 30
 
