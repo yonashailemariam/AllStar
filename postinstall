@@ -1,71 +1,14 @@
 #!/bin/sh
 
-# grab our firstboot script
-wget https://github.com/N4IRS/AllStar/raw/master/firstboot -O /etc/firstboot
+# grab our firstboot script and put in in /usr/local/bin
+wget https://github.com/N4IRS/AllStar/raw/master/firstboot -O /usr/local/bin/firstboot
+wget https://github.com/N4IRS/AllStar/raw/master/patches/patch-firstboot-rc.local -O /tmp/patch-firstboot-rc.local
 
-chmod +x /etc/firstboot
+chmod +x /usr/local/bin/firstboot
 
-# create a service that will run our firstboot script
-################################################################################################################
-################################################################################################################
-
-cat > /etc/init.d/firstboot <<EOF
-#! /bin/sh
-### BEGIN INIT INFO
-# Provides:          firstboot
-# Required-Start:    $networking
-# Required-Stop:     $networking
-# Default-Start:     2 3 4 5
-# Default-Stop:      0 1 6
-# Short-Description: Run /etc/firstboot if it exist
-### END INIT INFO
-
-
-PATH=/sbin:/usr/sbin:/bin:/usr/bin
-
-. /lib/init/vars.sh
-. /lib/lsb/init-functions
-
-do_start() {
-	if [ -x /etc/firstboot ]; then
-	        [ "$VERBOSE" != no ] && log_begin_msg "Running firstboot script (/root/firstboot)"
-		/etc/firstboot
-		ES=$?
-		[ "$VERBOSE" != no ] && log_end_msg $ES
-		return $ES
-	fi
-}
-
-case "$1" in
-    start)
-	do_start
-        ;;
-    restart|reload|force-reload)
-        echo "Error: argument '$1' not supported" >&2
-        exit 3
-        ;;
-    stop|status)
-        # No-op
-        exit 0
-        ;;
-    *)
-        echo "Usage: $0 start|stop" >&2
-        exit 3
-        ;;
-esac
-
-# don't panic, this is run by the firstboot service
-# NOT postinstall
-cd /root ; /usr/bin/nohup sh -x /root/firstboot &
-
-
-EOF
-#########################################################################################################
-#########################################################################################################
-
-# install the firstboot service
-chmod +x /etc/init.d/firstboot
-update-rc.d firstboot defaults
+# modify rc.local to run firstboot
+cd /etc
+patch </tmp/patch-firstboot-rc.local
 
 echo "finished post install"
 

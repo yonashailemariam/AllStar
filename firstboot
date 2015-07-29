@@ -8,10 +8,16 @@
 # Introducing a brief sleep makes things work right all the
 # time.
 
-# Remove our firstboot service so that it won't run again
-update-rc.d firstboot remove
+# setup ntp
+timedatectl set-ntp true
 
-echo "Installing AllStar Asterisk, Please wait"
+# put rc.local back to stock
+cd /etc
+patch </srv/patch-stock-rc.local
+
+
+echo "Installing AllStar Asterisk, Please wait" >/var/log/firstboot.log
+touch /var/log/automated_install
 
 sleep 30
 
@@ -27,13 +33,17 @@ tar xvf x86.tar
 
 # run x86_allstar_install
 # need to tweak this for required libs and build tools are not run
-x86_allstar_asterisk_install.sh
+
+# /srv/x86_allstar_asterisk_install.sh
+/srv/scripts/get_src.sh
+/srv/scripts/build_dahdi.sh
+/srv/scripts/build_asterisk.sh
 
 # end of script
 ################
 
 # Reboot into the system
-echo "AllStar Asterisk install Complete, rebooting"
+echo "AllStar Asterisk install Complete, rebooting" >>/var/log/firstboot.log
 
 sleep 5
 
