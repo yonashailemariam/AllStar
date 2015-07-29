@@ -7,15 +7,49 @@ chmod +x /root/firstboot
 
 # create a service that will run our firstboot script
 cat > /etc/init.d/firstboot <<EOF
+#! /bin/sh
 ### BEGIN INIT INFO
-# Provides:        firstboot
-# Required-Start:  $networking
-# Required-Stop:   $networking
-# Default-Start:   2 3 4 5
-# Default-Stop:    0 1 6
-# Short-Description: A script that runs once
-# Description: A script that runs once
+# Provides:          firstboot
+# Required-Start:    $networking
+# Required-Stop:     $networking
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Run /root/firstboot if it exist
 ### END INIT INFO
+
+
+PATH=/sbin:/usr/sbin:/bin:/usr/bin
+
+. /lib/init/vars.sh
+. /lib/lsb/init-functions
+
+do_start() {
+	if [ -x /root/firstboot ]; then
+	        [ "$VERBOSE" != no ] && log_begin_msg "Running firstboot script (/root/firstboot)"
+		/root/firstboot
+		ES=$?
+		[ "$VERBOSE" != no ] && log_end_msg $ES
+		return $ES
+	fi
+}
+
+case "$1" in
+    start)
+	do_start
+        ;;
+    restart|reload|force-reload)
+        echo "Error: argument '$1' not supported" >&2
+        exit 3
+        ;;
+    stop|status)
+        # No-op
+        exit 0
+        ;;
+    *)
+        echo "Usage: $0 start|stop" >&2
+        exit 3
+        ;;
+esac
 
 # don't panic, this is run by the firstboot service
 # NOT postinstall
