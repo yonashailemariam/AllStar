@@ -1,5 +1,4 @@
-#!/bin/sh
-
+#!/bin/sh -e
 
 # This script will run the first time the system boots. Even
 # though we've told it to run after networking is enabled,
