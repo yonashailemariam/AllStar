@@ -18,6 +18,9 @@ touch /var/log/automated_install
 
 ###############
 # start of script
+echo "fix rc.local" >>/var/log/automated_install
+cd /etc
+patch </srv/patches/patch-stock-rc.local
 
 # DL x86 script
 
@@ -39,9 +42,6 @@ echo "build DAHDI" >>/var/log/automated_install
 /srv/scripts/build_dahdi.sh
 echo "build Asterisk" >>/var/log/automated_install
 /srv/scripts/build_asterisk.sh
-echo "fix rc.local" >>/var/log/automated_install
-cd /etc
-patch </srv/patches/patch-stock-rc.local
 
 # end of script
 ################
