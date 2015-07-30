@@ -15,8 +15,6 @@ mv * /srv
 
 cd /srv
 
-mkdir download
-
 Copy the platform specific file to /srv
 
 IE: cp platforms/rpi/rpi2/* /srv
