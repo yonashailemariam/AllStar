@@ -21,8 +21,6 @@ patch < /srv/patches/patch-asterisk-makefile
 
 ./configure
 
-# add patch for ulaw sound files
-
 # Build and install Asterisk
 make
 make install

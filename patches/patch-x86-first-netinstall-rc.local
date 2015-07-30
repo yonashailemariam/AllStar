@@ -1,0 +1,9 @@
+--- rc.local	2015-07-29 11:40:24.996976969 -0400
++++ rc.local	2015-07-29 11:57:09.812925718 -0400
+@@ -10,5 +10,5 @@
+ # bits.
+ #
+ # By default this script does nothing.
+-
++/srv/x86_netinstall_allstar_asterisk_install.sh &
+ exit 0
