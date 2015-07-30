@@ -9,22 +9,20 @@
 # time.
 
 # setup ntp
-timedatectl set-ntp true
-
-# put rc.local back to stock
-cd /etc
-patch </srv/patch-stock-rc.local
-
-
-echo "Installing AllStar Asterisk, Please wait" >/var/log/firstboot.log
-touch /var/log/automated_install
 
 sleep 30
+
+timedatectl set-ntp true
+
+touch /var/log/automated_install
 
 ###############
 # start of script
 
 # DL x86 script
+
+echo "start DL" >>/var/log/automated_install
+
 cd /srv
 wget https://github.com/N4IRS/AllStar/raw/master/x86.tar
 
@@ -35,15 +33,21 @@ tar xvf x86.tar
 # need to tweak this for required libs and build tools are not run
 
 # /srv/x86_allstar_asterisk_install.sh
+echo "Get Source" >>/var/log/automated_install
 /srv/scripts/get_src.sh
+echo "build DAHDI" >>/var/log/automated_install
 /srv/scripts/build_dahdi.sh
+echo "build Asterisk" >>/var/log/automated_install
 /srv/scripts/build_asterisk.sh
+echo "fix rc.local" >>/var/log/automated_install
+cd /etc
+patch </srv/patches/patch-stock-rc.local
 
 # end of script
 ################
 
 # Reboot into the system
-echo "AllStar Asterisk install Complete, rebooting" >>/var/log/firstboot.log
+echo "AllStar Asterisk install Complete, rebooting" >>/var/log/automated_install
 
 sleep 5
 
