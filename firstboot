@@ -18,9 +18,6 @@ touch /var/log/automated_install
 
 ###############
 # start of script
-echo "fix rc.local" >>/var/log/automated_install
-cd /etc
-patch </srv/patches/patch-stock-rc.local
 
 # DL x86 script
 
@@ -31,6 +28,9 @@ wget https://github.com/N4IRS/AllStar/raw/master/x86.tar
 
 # untar x86 script
 tar xvf x86.tar
+echo "fix rc.local" >>/var/log/automated_install
+cd /etc
+patch </srv/patches/patch-stock-rc.local
 
 # run x86_allstar_install
 # need to tweak this for required libs and build tools are not run
