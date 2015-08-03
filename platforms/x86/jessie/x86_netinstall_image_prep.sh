@@ -1,8 +1,5 @@
 #!/bin/sh
 
-##################### no longer named this see x86_netinstall_image_prep.sh #####################
-##################### delete this after next netinstall built ###################################
-
 # DL firstboot script and put in in /usr/local/bin
 wget https://github.com/N4IRS/AllStar/raw/master/platforms/x86/jessie/x86_netinstall_allstar_asterisk_install.sh -O /srv/x86_netinstall_allstar_asterisk_install.sh
 # DL firstboot rc.local patch and put in in /tmp
