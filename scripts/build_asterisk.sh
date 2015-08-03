@@ -32,16 +32,20 @@ cd /etc/asterisk/
 rm *
 cp /srv/configs/* .
 
-# Install Nodelist update and start at boot
-cp /usr/src/astsrc-1.4.23-pre/allstar/rc.updatenodelist /usr/local/bin/rc.updatenodelist
-
-cd /etc
-patch < /srv/patches/patch-rc.local
-
 # add the sound files for app_rpt
 cd /usr/src/astsrc-1.4.23-pre
 mkdir -p /var/lib/asterisk/sounds/rpt
 cp -a /usr/src/astsrc-1.4.23-pre/sounds/* /var/lib/asterisk/sounds
+
+# Install Nodelist update and start at boot
+cp /usr/src/astsrc-1.4.23-pre/allstar/rc.updatenodelist /usr/local/bin/rc.updatenodelist
+
+##########################################################################################
+
+# move steps below to platform  install file
+
+cd /etc
+patch < /srv/patches/patch-rc.local
 
 # make /dev/dsp available
 # not needed for a hub

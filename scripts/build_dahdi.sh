@@ -23,6 +23,10 @@ make install
 make config
 
 # Dont need and dahdi hardware drivers loaded for most installs
+
+##################################################################
+
+# change this to setup dahdi for quad card
 mv /etc/dahdi/modules /etc/dahdi/modules.old
 
 
