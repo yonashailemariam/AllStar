@@ -6,7 +6,6 @@
 #                                            #
 ##############################################
 
-# this needs to be fixed so that if the version changes so does the cd
 cd /usr/src/astsrc-1.4.23-pre/dahdi-linux-complete/
 
 # Patch dahdi for use with AllStar Asterisk

@@ -1,7 +1,11 @@
 #! /bin/sh
 
 # change governor to performance
-# echo performance > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
+echo performance > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
+
+# add performance setting to rc.local for rpi
+cd /etc
+patch < /srv/patches/patch-rpi-rc.local
 
 # keep raspberrypi-bootloader at current version.
 # Don't let it upgrade the kernel.

@@ -1,3 +1,11 @@
+#! /bin/sh
+
+#########################################################
+#                                                       #
+# script was built for Linode AllStar Asterisk install. #
+#                                                       #
+#########################################################
+
 # Setup to install kernel and kernel headers
 apt-get update
 apt-get upgrade -y

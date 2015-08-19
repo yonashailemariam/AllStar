@@ -8,6 +8,10 @@
 # change governor to performance
 echo performance > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
 
+# add performance setting to rc.local for rpi
+cd /etc
+patch < /srv/patches/patch-rpi-rc.local
+
 # set the locales and time zone
 dpkg-reconfigure locales
 dpkg-reconfigure tzdata
