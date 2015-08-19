@@ -1,5 +1,7 @@
 --- a/contrib/init.d/rc.debian.asterisk	2008-10-19 18:49:56.000000000 -0400
 +++ b/contrib/init.d/rc.debian.asterisk	2015-01-02 12:20:00.000000000 -0500
+/* update /etc/init.d/asterisk to Debian LSB */
+/* N4IRS 01-02-2015  */
 @@ -1,4 +1,27 @@
 -#! /bin/sh
 +#!/bin/sh

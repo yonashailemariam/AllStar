@@ -1,5 +1,7 @@
 --- Makefile	2015-03-18 22:57:24.600066472 -0400
 +++ Makefile	2015-03-18 22:59:58.390492613 -0400
+/* Get SVN version number and set start stop run levels */
+/* N4IRS 03-18-2015  */
 @@ -258,13 +258,13 @@
  
  ASTERISKVERSION:=$(shell GREP=$(GREP) AWK=$(AWK) build_tools/make_version .)

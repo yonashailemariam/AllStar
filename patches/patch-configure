@@ -1,5 +1,8 @@
 --- configure	2008-10-19 23:16:16.000000000 -0400
-+++ configure.new	2014-04-11 11:14:54.605495432 -0400
++++ configure	2014-04-11 11:14:54.605495432 -0400
+/* Fix configure to check for Debian SSL */
+/* N4IRS 04-11-2014  */
+
 @@ -27854,9 +27854,9 @@
        	 pbxlibdir="-L${OPENSSL_DIR}"
        fi

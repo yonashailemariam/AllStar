@@ -29,3 +29,10 @@ https://images.collabora.co.uk/rpi2/jessie-rpi2-20150202.img.gz
 
 login: root	password: debian
 
+Debian Bare Metal installer:
+
+https://drive.google.com/file/d/0ByDmt8HV_FwMSkIzaDNhYV9sdFk/view?usp=sharing
+
+
+
+

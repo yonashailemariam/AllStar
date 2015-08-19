@@ -1,5 +1,8 @@
 --- menuselect.makeopts	2015-03-13 12:56:26.002417229 -0400
 +++ menuselect.makeopts	2015-03-13 12:57:05.806102109 -0400
+/* Set menuselect options*/
+/* N4IRS 03-13-2015  */
+
 @@ -9,9 +9,9 @@
  MENUSELECT_OPTS_app_voicemail=
  MENUSELECT_CFLAGS=RADIO_RELAX LOADABLE_MODULES 

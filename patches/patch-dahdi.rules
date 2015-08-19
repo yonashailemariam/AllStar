@@ -1,5 +1,7 @@
 --- tools/dahdi.rules	2015-06-15 15:37:31.000000000 -0400
-+++ tools/dahdi.rules.new	2015-07-25 15:00:34.729172632 -0400
++++ tools/dahdi.rules	2015-07-25 15:00:34.729172632 -0400
+/* Modify udev rules so that user asterisk does not own dahdi */
+/* N4IRS 07-25-2015  */
 @@ -2,7 +2,7 @@
  ACTION!="add",	GOTO="dahdi_add_end"
  
