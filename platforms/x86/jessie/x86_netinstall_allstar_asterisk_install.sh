@@ -15,10 +15,10 @@ timedatectl set-ntp true
 # DL x86 script
 echo "start DL of AllStar Asterisk install" >>/var/log/automated_install
 cd /srv
-wget https://github.com/N4IRS/AllStar/raw/master/x86.tar
+wget https://github.com/N4IRS/AllStar/raw/master/x86.tar.gz
 
 # untar x86 script
-tar xvf x86.tar
+tar zxvf x86.tar.gz
 cd /etc
 patch </srv/patches/patch-x86-stock-netinstall-rc.local
 echo "put rc.local back to default" >>/var/log/automated_install
