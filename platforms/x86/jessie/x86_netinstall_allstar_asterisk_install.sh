@@ -23,8 +23,23 @@ cd /etc
 patch </srv/patches/patch-x86-stock-netinstall-rc.local
 echo "put rc.local back to default" >>/var/log/automated_install
 
-# run x86_allstar_install
-# need to tweak this for required libs and build tools are not run
+# disable exim4 daemon
+cd /etc/default/
+patch </srv/patches/patch-exim4
+service exim4 restart
+echo "disable exim4 daemon" >>/var/log/automated_install
+
+# No need for NFS
+apt-get remove nfs-common -y
+apt-get remove rpcbind -y
+apt-get autoremove -y
+echo "removed NFS" >>/var/log/automated_install
+
+# stop sshd from listening to ipv6
+cd  /etc/ssh
+patch </srv/patches/patch-sshd_config
+service ssh restart
+echo "removed sshd ipv6 listener" >>/var/log/automated_install
 
 /srv/scripts/get_src.sh
 echo "Get Source" >>/var/log/automated_install
