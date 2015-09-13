@@ -31,7 +31,7 @@ echo "disable exim4 daemon" >>/var/log/automated_install
 
 # No need for NFS
 apt-get remove nfs-common -y
-apt-get remove rpcbind -y
+apt-get purge rpcbind -y
 apt-get autoremove -y
 echo "removed NFS" >>/var/log/automated_install
 
@@ -60,6 +60,11 @@ echo snd_pcm_oss >>/etc/modules
 # start update node list on boot
 cd /etc
 patch < /srv/patches/patch-rc.local
+
+# setup systemd network
+
+# systemctl enable systemd-networkd.service
+# systemctl start systemd-networkd.service
 
 # Reboot into the system
 echo "AllStar Asterisk install Complete, rebooting" >>/var/log/automated_install
