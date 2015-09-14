@@ -61,10 +61,17 @@ echo snd_pcm_oss >>/etc/modules
 cd /etc
 patch < /srv/patches/patch-rc.local
 
-# setup systemd network
+# Disable /etc/network/interfaces
+cd /etc/network
+patch < /srv/patches/patch-interfaces
+echo "Disable /etc/network/interfaces" >>/var/log/automated_install
 
-# systemctl enable systemd-networkd.service
-# systemctl start systemd-networkd.service
+# Enable systemd networking
+/srv/scripts/mk_eth0.network.sh
+echo "make systemd network" >>/var/log/automated_install
+
+systemctl enable systemd-networkd.service
+systemctl start systemd-networkd.service
 
 # Reboot into the system
 echo "AllStar Asterisk install Complete, rebooting" >>/var/log/automated_install
