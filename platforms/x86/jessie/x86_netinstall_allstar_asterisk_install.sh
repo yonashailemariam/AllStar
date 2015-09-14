@@ -38,7 +38,7 @@ apt-get autoremove -y
 echo "removed NFS" >>/var/log/automated_install
 
 # setup ntp
-timedatectl set-ntp true
+apt-get install ntpdate -y
 
 # put rc.local back to default
 cd /etc
