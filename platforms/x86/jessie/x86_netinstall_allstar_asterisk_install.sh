@@ -9,6 +9,14 @@
 # time. This needs to be checked again and see if we can remove it.
 sleep 30
 
+# DL x86 tar ball
+echo "start DL of AllStar Asterisk install" >>/var/log/automated_install
+cd /srv
+wget https://github.com/N4IRS/AllStar/raw/master/x86.tar.gz
+
+# untar x86 script
+tar zxvf x86.tar.gz
+
 # The 2 patches below may be moved to image_prep
 
 # stop sshd from listening to ipv6
@@ -31,14 +39,6 @@ echo "removed NFS" >>/var/log/automated_install
 
 # setup ntp
 timedatectl set-ntp true
-
-# DL x86 script
-echo "start DL of AllStar Asterisk install" >>/var/log/automated_install
-cd /srv
-wget https://github.com/N4IRS/AllStar/raw/master/x86.tar.gz
-
-# untar x86 script
-tar zxvf x86.tar.gz
 
 # put rc.local back to default
 cd /etc
