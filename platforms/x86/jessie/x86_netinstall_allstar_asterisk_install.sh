@@ -6,22 +6,16 @@
 # net immediately.
 #
 # Introducing a brief sleep makes things work right all the
-# time.
+# time. This needs to be checked again and see if we can remove it.
 sleep 30
 
-# setup ntp
-timedatectl set-ntp true
+# The 2 patches below may be moved to image_prep
 
-# DL x86 script
-echo "start DL of AllStar Asterisk install" >>/var/log/automated_install
-cd /srv
-wget https://github.com/N4IRS/AllStar/raw/master/x86.tar.gz
-
-# untar x86 script
-tar zxvf x86.tar.gz
-cd /etc
-patch </srv/patches/patch-x86-stock-netinstall-rc.local
-echo "put rc.local back to default" >>/var/log/automated_install
+# stop sshd from listening to ipv6
+cd  /etc/ssh
+patch </srv/patches/patch-sshd_config
+service ssh restart
+echo "removed sshd ipv6 listener" >>/var/log/automated_install
 
 # disable exim4 daemon
 cd /etc/default/
@@ -35,11 +29,21 @@ apt-get purge rpcbind -y
 apt-get autoremove -y
 echo "removed NFS" >>/var/log/automated_install
 
-# stop sshd from listening to ipv6
-cd  /etc/ssh
-patch </srv/patches/patch-sshd_config
-service ssh restart
-echo "removed sshd ipv6 listener" >>/var/log/automated_install
+# setup ntp
+timedatectl set-ntp true
+
+# DL x86 script
+echo "start DL of AllStar Asterisk install" >>/var/log/automated_install
+cd /srv
+wget https://github.com/N4IRS/AllStar/raw/master/x86.tar.gz
+
+# untar x86 script
+tar zxvf x86.tar.gz
+
+# put rc.local back to default
+cd /etc
+patch </srv/patches/patch-x86-stock-netinstall-rc.local
+echo "put rc.local back to default" >>/var/log/automated_install
 
 /srv/scripts/get_src.sh
 echo "Get Source" >>/var/log/automated_install
