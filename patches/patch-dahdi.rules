@@ -1,5 +1,5 @@
---- dahdi.rules 2015-09-15 12:43:40.043986634 -0400
-+++ dahdi.rules 2015-09-15 12:46:47.567984086 -0400
+--- tools/dahdi.rules 2015-09-15 12:43:40.043986634 -0400
++++ tools/dahdi.rules 2015-09-15 12:46:47.567984086 -0400
 /* Modify udev rules so that user asterisk does not own dahdi */
 /* Surpress the "error" in /var/log/asterisk/messages  */
 /* N4IRS 09-15-2015  */
