@@ -19,17 +19,23 @@ tar zxvf x86.tar.gz
 
 # The 2 patches below may be moved to image_prep
 
+########################################################
+
+# Moved to image prep
+
 # stop sshd from listening to ipv6
-cd  /etc/ssh
-patch </srv/patches/patch-sshd_config
-service ssh restart
-echo "removed sshd ipv6 listener" >>/var/log/automated_install
+# cd  /etc/ssh
+# patch </srv/patches/patch-sshd_config
+# service ssh restart
+# echo "removed sshd ipv6 listener" >>/var/log/automated_install
 
 # disable exim4 daemon
-cd /etc/default/
-patch </srv/patches/patch-exim4
-service exim4 restart
-echo "disable exim4 daemon" >>/var/log/automated_install
+# cd /etc/default/
+# patch </srv/patches/patch-exim4
+# service exim4 restart
+# echo "disable exim4 daemon" >>/var/log/automated_install
+
+##########################################################
 
 # No need for NFS
 apt-get remove nfs-common -y

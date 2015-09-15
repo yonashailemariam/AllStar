@@ -17,14 +17,14 @@ echo "rc.local modified to run x86_netinstall_allstar_asterisk_install.sh" >>/va
 # Place holders for a possible move from NetInstall script.
 
 # stop sshd from listening to ipv6
-# wget https://github.com/N4IRS/AllStar/raw/master/patches/patch-sshd_config -O /tmp/patch-sshd_config
-# cd  /etc/ssh
-# patch </tmp/patch-sshd_config
-# echo "removed sshd ipv6 listener" >>/var/log/automated_install
+wget https://github.com/N4IRS/AllStar/raw/master/patches/patch-sshd_config -O /tmp/patch-sshd_config
+cd  /etc/ssh
+patch </tmp/patch-sshd_config
+echo "removed sshd ipv6 listener" >>/var/log/automated_install
 
 # disable exim4 daemon
-# wget https://github.com/N4IRS/AllStar/raw/master/patches/patch-exim4 -O /tmp/patch-exim4
-# cd /etc/default/
-# patch </tmp/patch-exim4
-# echo "disable exim4 daemon" >>/var/log/automated_install
+wget https://github.com/N4IRS/AllStar/raw/master/patches/patch-exim4 -O /tmp/patch-exim4
+cd /etc/default/
+patch </tmp/patch-exim4
+echo "disable exim4 daemon" >>/var/log/automated_install
 
