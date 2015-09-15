@@ -16,7 +16,7 @@ apt-get autoremove -y
 echo "removed NFSand rpcbind" >>/var/log/automated_install
 
 # Enable and start systemd networking
-need to verify this is needed
+# need to verify this is needed
 systemctl enable systemd-networkd.service
 systemctl start systemd-networkd.service
 
