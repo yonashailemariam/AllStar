@@ -26,7 +26,9 @@ sleep 10
 echo > /var/log/netstat.txt
 echo "At the top of the script" >> /var/log/netstat.txt
 echo  >> /var/log/netstat.txt
+echo "netstat -unap" >> /var/log/netstat.txt
 netstat -unap >> /var/log/netstat.txt
+echo "netstat -tnap" >> /var/log/netstat.txt
 netstat -tnap >> /var/log/netstat.txt
 
 # DL x86 tar ball
@@ -38,14 +40,16 @@ wget https://github.com/N4IRS/AllStar/raw/master/x86.tar.gz
 tar zxvf x86.tar.gz
 
 # setup ntpdate
+# add hourly clock adjustment
 apt-get install ntpdate -y
+ln -s /etc/network/if-up.d/ntpdate /etc/cron.hourly/ntpdate
 
 # put rc.local back to default
 cd /etc
 patch </srv/patches/patch-x86-stock-netinstall-rc.local
 echo "put rc.local back to default" >>/var/log/automated_install
 
-# Get AllSter, DAHDI and kernel headers
+# get AllSter, DAHDI and kernel headers
 /srv/scripts/get_src.sh
 echo "Get Source" >>/var/log/automated_install
 
