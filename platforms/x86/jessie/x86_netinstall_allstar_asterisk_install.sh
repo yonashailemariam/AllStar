@@ -8,17 +8,15 @@
 # Introducing a brief sleep makes things work right all the
 # time. This needs to be checked again and see if we can remove it.
 
-# Moved to image prep
-# Disable /etc/network/interfaces
-# cd /etc/network
-# patch < /srv/patches/patch-interfaces
-# echo "Disable /etc/network/interfaces" >>/var/log/automated_install
-
-# Setup systemd networking
-# /srv/scripts/mk_eth0.network.sh
-# echo "make systemd network" >>/var/log/automated_install
+# No need for NFS or rpcbind
+# can this be moved to run BEFORE networking is started?
+apt-get remove nfs-common -y
+apt-get purge rpcbind -y
+apt-get autoremove -y
+echo "removed NFSand rpcbind" >>/var/log/automated_install
 
 # Enable and start systemd networking
+need to verify this is needed
 systemctl enable systemd-networkd.service
 systemctl start systemd-networkd.service
 
@@ -39,31 +37,7 @@ wget https://github.com/N4IRS/AllStar/raw/master/x86.tar.gz
 # untar x86 script
 tar zxvf x86.tar.gz
 
-########################################################
-
-# Moved to image prep
-
-# stop sshd from listening to ipv6
-# cd  /etc/ssh
-# patch </srv/patches/patch-sshd_config
-# service ssh restart
-# echo "removed sshd ipv6 listener" >>/var/log/automated_install
-
-# disable exim4 daemon
-# cd /etc/default/
-# patch </srv/patches/patch-exim4
-# service exim4 restart
-# echo "disable exim4 daemon" >>/var/log/automated_install
-
-##########################################################
-
-# No need for NFS
-apt-get remove nfs-common -y
-apt-get purge rpcbind -y
-apt-get autoremove -y
-echo "removed NFS" >>/var/log/automated_install
-
-# setup ntp
+# setup ntpdate
 apt-get install ntpdate -y
 
 # put rc.local back to default
@@ -109,6 +83,13 @@ patch < /srv/patches/patch-rc.local
 
 # Reboot into the system
 echo "AllStar Asterisk install Complete, rebooting" >>/var/log/automated_install
+
+# Log UDP and TCP listeners during install process
+echo >> /var/log/netstat.txt
+echo "At the bottom of the script" >> /var/log/netstat.txt
+echo  >> /var/log/netstat.txt
+netstat -unap >> /var/log/netstat.txt
+netstat -tnap >> /var/log/netstat.txt
 
 sleep 5
 
