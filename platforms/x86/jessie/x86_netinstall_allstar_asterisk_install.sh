@@ -8,14 +8,15 @@
 # Introducing a brief sleep makes things work right all the
 # time. This needs to be checked again and see if we can remove it.
 
+# Moved to image prep
 # Disable /etc/network/interfaces
-cd /etc/network
-patch < /srv/patches/patch-interfaces
-echo "Disable /etc/network/interfaces" >>/var/log/automated_install
+# cd /etc/network
+# patch < /srv/patches/patch-interfaces
+# echo "Disable /etc/network/interfaces" >>/var/log/automated_install
 
 # Setup systemd networking
-/srv/scripts/mk_eth0.network.sh
-echo "make systemd network" >>/var/log/automated_install
+# /srv/scripts/mk_eth0.network.sh
+# echo "make systemd network" >>/var/log/automated_install
 
 # Enable and start systemd networking
 systemctl enable systemd-networkd.service
