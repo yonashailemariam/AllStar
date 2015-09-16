@@ -1,21 +1,18 @@
-#! /bin/sh
+#!/bin/sh
 
-#########################################################
-#                                                       #
-# script was built for x86 AllStar Asterisk install.    #
-#                                                       #
-#########################################################
+sleep 10
 
-timedatectl set-ntp true
-
-/srv/scripts/required_libs.sh
-/srv/scripts/build_tools.sh
+# get AllSter, DAHDI and kernel headers
 /srv/scripts/get_src.sh
+echo "Get Source" >>/var/log/install.log
 
+# build DAHDI
 /srv/scripts/build_dahdi.sh
-/srv/scripts/build_asterisk.sh
+echo "build DAHDI" >>/var/log/install.log
 
-# moved steps below from build_asterisk to platform install file
+# Build Asterisk
+/srv/scripts/build_asterisk.sh
+echo "build Asterisk" >>/var/log/install.log
 
 # make /dev/dsp available
 # not needed for a hub
@@ -26,6 +23,10 @@ echo snd_pcm_oss >>/etc/modules
 cd /etc
 patch < /srv/patches/patch-rc.local
 
-echo " If all looks good, edit iax.conf extensions.conf and rpt.conf"
-echo " Pay attention to the top of rpt.conf"
+# Reboot into the system
+echo "AllStar Asterisk install Complete, rebooting" >>/var/log/install.log
+
+sleep 5
+
+/sbin/reboot
 

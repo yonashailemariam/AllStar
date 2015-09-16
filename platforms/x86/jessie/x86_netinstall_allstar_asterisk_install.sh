@@ -13,10 +13,9 @@
 apt-get remove nfs-common -y
 apt-get purge rpcbind -y
 apt-get autoremove -y
-echo "removed NFSand rpcbind" >>/var/log/automated_install
+echo "removed NFSand rpcbind" >>/var/log/install.log
 
 # Enable and start systemd networking
-# need to verify this is needed
 systemctl enable systemd-networkd.service
 systemctl start systemd-networkd.service
 
@@ -32,7 +31,7 @@ echo "netstat -tnap" >> /var/log/netstat.txt
 netstat -tnap >> /var/log/netstat.txt
 
 # DL x86 tar ball
-echo "start DL of AllStar Asterisk install" >>/var/log/automated_install
+echo "start DL of AllStar Asterisk install" >>/var/log/install.log
 cd /srv
 wget https://github.com/N4IRS/AllStar/raw/master/x86.tar.gz
 
@@ -47,19 +46,19 @@ ln -s /etc/network/if-up.d/ntpdate /etc/cron.hourly/ntpdate
 # put rc.local back to default
 cd /etc
 patch </srv/patches/patch-x86-stock-netinstall-rc.local
-echo "put rc.local back to default" >>/var/log/automated_install
+echo "put rc.local back to default" >>/var/log/install.log
 
 # get AllSter, DAHDI and kernel headers
 /srv/scripts/get_src.sh
-echo "Get Source" >>/var/log/automated_install
+echo "Get Source" >>/var/log/install.log
 
 # build DAHDI
 /srv/scripts/build_dahdi.sh
-echo "build DAHDI" >>/var/log/automated_install
+echo "build DAHDI" >>/var/log/install.log
 
 # Build Asterisk
 /srv/scripts/build_asterisk.sh
-echo "build Asterisk" >>/var/log/automated_install
+echo "build Asterisk" >>/var/log/install.log
 
 # moved steps below from build_asterisk to platform install file
 
@@ -72,21 +71,12 @@ echo snd_pcm_oss >>/etc/modules
 cd /etc
 patch < /srv/patches/patch-rc.local
 
-# Disable /etc/network/interfaces
-# cd /etc/network
-# patch < /srv/patches/patch-interfaces
-# echo "Disable /etc/network/interfaces" >>/var/log/automated_install
-
-# Setup systemd networking
-# /srv/scripts/mk_eth0.network.sh
-# echo "make systemd network" >>/var/log/automated_install
-
-# Enable and start systemd networking
-# systemctl enable systemd-networkd.service
-# systemctl start systemd-networkd.service
+# Add asterisk to logrotate
+/srv/scripts/mk_logrotate_asterisk.sh
+echo "add asterisk to logrotate" >>/var/log/install.log
 
 # Reboot into the system
-echo "AllStar Asterisk install Complete, rebooting" >>/var/log/automated_install
+echo "AllStar Asterisk install Complete, rebooting" >>/var/log/install.log
 
 # Log UDP and TCP listeners during install process
 echo >> /var/log/netstat.txt
