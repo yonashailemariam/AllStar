@@ -6,6 +6,6 @@
  # bits.
  #
  # By default this script does nothing.
--/srv/x86_netinstall_allstar_asterisk_install.sh >/var/log/install.log 2>&1 &
+-/srv/x86_netinstall_allstar_asterisk_install.sh >>/var/log/install.log 2>&1 &
 +
  exit 0
