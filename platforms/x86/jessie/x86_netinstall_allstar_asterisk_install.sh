@@ -18,6 +18,7 @@ echo "removed NFSand rpcbind" >>/var/log/install.log
 # Enable and start systemd networking
 systemctl enable systemd-networkd.service
 systemctl start systemd-networkd.service
+echo "start network" >>/var/log/install.log
 
 sleep 10
 
@@ -32,16 +33,20 @@ netstat -tnap >> /var/log/netstat.txt
 
 # DL x86 tar ball
 echo "start DL of AllStar Asterisk install" >>/var/log/install.log
+
 cd /srv
 wget https://github.com/N4IRS/AllStar/raw/master/x86.tar.gz
+echo "download tar ball" >>/var/log/install.log
 
 # untar x86 script
 tar zxvf x86.tar.gz
+echo "decompress x86.tar.gz" >>/var/log/install.log
 
 # setup ntpdate
 # add hourly clock adjustment
 apt-get install ntpdate -y
 ln -s /etc/network/if-up.d/ntpdate /etc/cron.hourly/ntpdate
+echo "Install ntpdate" >>/var/log/install.log
 
 # put rc.local back to default
 cd /etc
@@ -66,10 +71,12 @@ echo "build Asterisk" >>/var/log/install.log
 # not needed for a hub
 # Though it will not hurt anything.
 echo snd_pcm_oss >>/etc/modules
+echo "create /dev/dsp" >>/var/log/install.log
 
 # start update node list on boot
 cd /etc
 patch < /srv/patches/patch-rc.local
+echo "setup start update node list" >>/var/log/install.log
 
 # Add asterisk to logrotate
 /srv/scripts/mk_logrotate_asterisk.sh
