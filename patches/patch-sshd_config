@@ -1,7 +1,8 @@
---- sshd_config	2015-09-13 10:14:39.746548131 -0400
-+++ sshd_config	2015-09-13 10:13:41.282825972 -0400
+--- sshd_config	2015-09-28 14:52:59.452345261 -0400
++++ sshd_config	2015-09-28 14:53:32.731712579 -0400
 /* patch sshd to not listen ipv6 */
-/* N4IRS 09-13-2015  */
+/* Allow root login via ssh */
+/* N4IRS 09-28-2015  */
 @@ -5,7 +5,7 @@
  Port 22
  # Use these options to restrict which interfaces/protocols sshd will bind to
@@ -11,3 +12,12 @@
  Protocol 2
  # HostKeys for protocol version 2
  HostKey /etc/ssh/ssh_host_rsa_key
+@@ -25,7 +25,7 @@
+ 
+ # Authentication:
+ LoginGraceTime 120
+-PermitRootLogin without-password
++PermitRootLogin yes
+ StrictModes yes
+ 
+ RSAAuthentication yes
