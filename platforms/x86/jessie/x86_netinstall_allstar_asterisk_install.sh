@@ -16,8 +16,11 @@ apt-get autoremove -y
 echo "removed NFSand rpcbind" >>/var/log/install.log
 
 # Enable and start systemd networking
-systemctl enable systemd-networkd.service
-systemctl start systemd-networkd.service
+# systemctl enable systemd-networkd.service
+# systemctl start systemd-networkd.service
+systemctl enable systemd-networkd systemd-resolved
+systemctl start systemd-networkd systemd-resolved
+# ln -sf /run/systemd/resolve/resolv.conf /etc/resolv.conf
 echo "start network" >>/var/log/install.log
 
 sleep 10
@@ -91,6 +94,9 @@ echo "At the bottom of the script" >> /var/log/netstat.txt
 echo  >> /var/log/netstat.txt
 netstat -unap >> /var/log/netstat.txt
 netstat -tnap >> /var/log/netstat.txt
+
+# setup for Phase 3
+touch /etc/asterisk/firsttime
 
 sleep 5
 

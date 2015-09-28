@@ -68,8 +68,7 @@ fi
 
 while [ -z $IFMODE ]
 do
-        echo  "Do you want to set up (S)tatic, (D)CHP,"
-        echo -n "or (P)PP for the main network interface? "
+        echo -n "Do you want to set up (S)tatic or (D)HCP for the main network interface? "
 	read IFMODE
 	if [ $IFMODE = S ] || [ $IFMODE = s ]
 	then
