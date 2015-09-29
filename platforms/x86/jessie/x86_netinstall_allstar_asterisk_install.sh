@@ -15,9 +15,11 @@ apt-get purge rpcbind -y
 apt-get autoremove -y
 echo "removed NFSand rpcbind" >>/var/log/install.log
 
+
 # Enable and start systemd networking
-# systemctl enable systemd-networkd.service
-# systemctl start systemd-networkd.service
+systemctl enable systemd-networkd.service
+systemctl start systemd-networkd.service
+
 systemctl enable systemd-networkd systemd-resolved
 systemctl start systemd-networkd systemd-resolved
 # ln -sf /run/systemd/resolve/resolv.conf /etc/resolv.conf
@@ -60,6 +62,9 @@ echo "put rc.local back to default" >>/var/log/install.log
 /srv/scripts/get_src.sh
 echo "Get Source" >>/var/log/install.log
 
+# ugly!
+cp /var/log/install.log /var/log/install_phase1.log
+
 # build DAHDI
 /srv/scripts/build_dahdi.sh
 echo "build DAHDI" >>/var/log/install.log
@@ -96,7 +101,11 @@ netstat -unap >> /var/log/netstat.txt
 netstat -tnap >> /var/log/netstat.txt
 
 # setup for Phase 3
+cp /srv/post_install/* /usr/local/sbin
+
 touch /etc/asterisk/firsttime
+
+echo "test -e /etc/asterisk/firsttime && /usr/local/sbin/firsttime" >>/root/.bashrc
 
 sleep 5
 

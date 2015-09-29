@@ -24,8 +24,10 @@ function promptyn ()
 # The purpose of this script is to ask some key configuration questions,
 # save the configuration, and reboot.
 #
+# This needs to be moved to required
+apt-get install curl -y
 #
-if [ -e /firsttime ]
+if [ -e /etc/asterisk/firsttime ]
 then
 	echo ""
 	echo "It appears that this is the first time this system"
@@ -86,7 +88,7 @@ then
 
 exit 0
 
-		rm /firsttime
+		rm /etc/asterisk/firsttime
 
 		sync
 		sleep 1

@@ -25,6 +25,8 @@ apt-get install libiksemel-dev -y
 
 apt-get install libvorbis-dev -y
 
+apt-get install curl -y
+
 # Nice to have utilities and tools
 # is sox required or nice to have
 apt-get install sox -y
