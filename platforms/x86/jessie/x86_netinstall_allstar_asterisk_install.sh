@@ -23,7 +23,7 @@ systemctl start systemd-networkd.service
 systemctl enable systemd-networkd systemd-resolved
 systemctl start systemd-networkd systemd-resolved
 # ln -sf /run/systemd/resolve/resolv.conf /etc/resolv.conf
-echo "start network" >>/var/log/install.log
+echo "start networking" >>/var/log/install.log
 
 sleep 10
 
@@ -60,18 +60,18 @@ echo "put rc.local back to default" >>/var/log/install.log
 
 # get AllSter, DAHDI and kernel headers
 /srv/scripts/get_src.sh
-echo "Get Source" >>/var/log/install.log
+echo "Get source complete" >>/var/log/install.log
 
 # ugly!
 cp /var/log/install.log /var/log/install_phase1.log
 
 # build DAHDI
 /srv/scripts/build_dahdi.sh
-echo "build DAHDI" >>/var/log/install.log
+echo "build DAHDI complete" >>/var/log/install.log
 
 # Build Asterisk
 /srv/scripts/build_asterisk.sh
-echo "build Asterisk" >>/var/log/install.log
+echo "build Asterisk complete" >>/var/log/install.log
 
 # moved steps below from build_asterisk to platform install file
 
@@ -79,7 +79,7 @@ echo "build Asterisk" >>/var/log/install.log
 # not needed for a hub
 # Though it will not hurt anything.
 echo snd_pcm_oss >>/etc/modules
-echo "create /dev/dsp" >>/var/log/install.log
+echo "created /dev/dsp" >>/var/log/install.log
 
 # start update node list on boot
 cd /etc
@@ -88,7 +88,7 @@ echo "setup start update node list" >>/var/log/install.log
 
 # Add asterisk to logrotate
 /srv/scripts/mk_logrotate_asterisk.sh
-echo "add asterisk to logrotate" >>/var/log/install.log
+echo "added asterisk to logrotate" >>/var/log/install.log
 
 # Reboot into the system
 echo "AllStar Asterisk install Complete, rebooting" >>/var/log/install.log
@@ -103,11 +103,15 @@ netstat -tnap >> /var/log/netstat.txt
 # setup for Phase 3
 cp /srv/post_install/* /usr/local/sbin
 
-touch /etc/asterisk/firsttime
+# Dosabled for now
+# touch /etc/asterisk/firsttime
 
 echo "test -e /etc/asterisk/firsttime && /usr/local/sbin/firsttime" >>/root/.bashrc
 
 sleep 5
+
+# ugly!
+mv /var/log/install.log /var/log/install_phase2.log
 
 /sbin/reboot
 

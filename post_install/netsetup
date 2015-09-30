@@ -29,7 +29,6 @@ function promptyn ()
     fi
 }
 
-# http://tinyurl.com/nk5w87n
 # Function calculates number of bit in a netmask
 #
 mask2cidr() {

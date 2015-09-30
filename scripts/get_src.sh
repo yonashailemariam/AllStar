@@ -16,7 +16,7 @@ wget http://downloads.asterisk.org/pub/telephony/dahdi-linux-complete/dahdi-linu
 
 # Clean out unneeded source and add dahdi source
 cd /usr/src/astsrc-1.4.23-pre
-rm -rf libpri
+# rm -rf libpri
 rm -rf zaptel
 tar zxvf /srv/download/dahdi-linux-complete-current.tar.gz
 mv dahdi-linux-complete* dahdi-linux-complete
