@@ -34,9 +34,10 @@ echo "***** Host name setup *****"
 echo ""
 HOSTN=$(cat /etc/hostname)
 FQDN=$(hostname -f)
+DOMN=$(hostname -d)
 HOSTNAME=`echo $FQDN |awk -F. '{ print $1 }'`
-#Display existing hostname
 echo "Existing hostname is $HOSTN"
+echo "Existing Domain Name is $DOMN"
 echo "Existing FQDN is $FQDN"
 echo "Address is $IP"
 echo ""
@@ -65,8 +66,9 @@ then
         exit 0
 fi
 
-echo "Old hostname is $HOSTN"
-echo "Old FQDN is $FQDN"
+echo "Existing hostname is $HOSTN"
+echo "Existing Domain Name is $DOMN"
+echo "Existing FQDN is $FQDN"
 echo
 echo "New hostname is $HOSTNAME"
 echo "New domain is $DOMAIN"

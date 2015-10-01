@@ -109,7 +109,7 @@ mask2cidr() {
 ISDEBX=0
 if [ -r /etc/debian_version ]
 then
-	uname -omv | grep -E 'Debian.*I686' > /dev/null 2>&1
+	uname -omv | grep -E 'Debian.*i686' > /dev/null 2>&1
         if [ $? -eq 0 ]
         then
                 ISDEBX=1
@@ -225,7 +225,7 @@ fi
 
 if [ $AUTOMAGIC -eq 0 ]
 then
-	echo 
+	echo
 fi
 
 if [ $N -gt 1 ]
@@ -283,7 +283,7 @@ then
 				rm -rf $TMP
 				exit 1
 			fi
-		fi	
+		fi
 	done
 fi
 
@@ -341,7 +341,7 @@ if [ $ISBBB -eq 1 ]
 then
 	INTPATH=/etc/netctl/eth0
 
-	if [ ! -f $INTPATH ] 
+	if [ ! -f $INTPATH ]
 	then
 		echo "Problem with BBB Linux networking setup!"
 		rm -rf $TMP
@@ -497,7 +497,7 @@ exit 1
 
 	if [ ! -f $INTPATH ] || [ ! -f $IFUPDPATH ]
 	then
-		echo "Problem with Picke Linux networking setup!"
+		echo "Problem with Pickle Linux networking setup!"
 		rm -rf $TMP
 		exit 1
 	fi
@@ -534,7 +534,7 @@ exit 1
 
 	if [ $ifconfig_type = 'static' ]
 	then
-		if [ -z $ipaddress ] || [ -z $netmask ] || [ -z $gateway ] || [ -z $dns1$dns2 ] 
+		if [ -z $ipaddress ] || [ -z $netmask ] || [ -z $gateway ] || [ -z $dns1$dns2 ]
 		then
 			echo "Static IP information incomplete"
 			rm -rf $TMP
@@ -663,12 +663,158 @@ then
 	then
 		echo "Not changing network configurarion (as requested)"
 	fi
+
+#################
+#################
+
+elif [ $ISDEBX -eq 1 ]
+then
+
+	INTPATH=/etc/network/interfaces
+	IFUPDPATH=/etc/network/if-up.d/touchfile
+
+IP=$(grep Address= /etc/systemd/network/eth0.network | awk -F'=' '{print $2}' | awk -F'/' '{print $1}')
+        if [ -z $IP ]
+                then IP=DHCP
+        fi
+
+HOSTN=$(cat /etc/hostname)
+FQDN=$(hostname -f)
+DOMN=$(hostname -d)
+HOSTNAME=`echo $FQDN |awk -F. '{ print $1 }'`
+echo ""
+echo "Existing hostname is $HOSTN"
+echo "Existing Domain Name is $DOMN"
+echo "Existing FQDN is $FQDN"
+echo "Address is $IP"
+echo ""
+echo "New hostname is $Hostname"
+echo "New IP is $ipaddress"
+echo "New Netmask is $netmask"
+echo "New Gateway is $gateway"
+echo "New DNS 1 is $dns1"
+echo "New DNS 2 is $dns2"
+FQDN="$Hostname.$DOMN"
+echo "New FQDN is $FQDN"
+echo ""
+# exit 0
+
+#	if [ ! -f $INTPATH ] || [ ! -f $IFUPDPATH ]
+#	then
+#		echo "Problem with Debian Linux networking setup!"
+#		rm -rf $TMP
+#		exit 1
+#	fi
+
+	if [ ! -z $Hostname ]
+	then
+		if [ $AUTOMAGIC -eq 0 ]
+		then
+			echo "Setting Host Name to $Hostname"
+		fi
+		echo $Hostname > /etc/hostname
+	fi
+
+	if [ $ifconfig_type = 'dhcp' ]
+	then
+
+		if [ $AUTOMAGIC -eq 0 ]
+		then
+			echo "Setting network address mode to DHCP"
+		fi
+                # write systemd style network file to /etc/systemd/network/eth0.network
+                echo "[Match]" >/etc/systemd/network/eth0.network
+                echo "Name=eth0" >>/etc/systemd/network/eth0.network
+                echo >>/etc/systemd/network/eth0.network
+                echo "[Network]" >>/etc/systemd/network/eth0.network
+                echo "DHCP=v4" >>/etc/systemd/network/eth0.network
+                echo "" >>/etc/systemd/network/eth0.network
+                echo >>/etc/systemd/network/eth0.network
+
+                # create /etc/hosts for DHCP
+                echo "127.0.0.1         localhost" >/etc/hosts
+                echo "127.0.0.1         $FQDN   $Hostname" >>/etc/hosts
+                echo >>/etc/hosts
+                echo "# The following lines are desirable for IPv6 capable hosts" >>/etc/hosts
+                echo "::1     localhost ip6-localhost ip6-loopback" >>/etc/hosts
+                echo "ff02::1 ip6-allnodes" >>/etc/hosts
+                echo "ff02::2 ip6-allrouters" >>/etc/hosts
+                echo >>/etc/hosts
+
+                # enable and start systemd DHCP
+                systemctl enable systemd-resolved > /dev/null 2>&1
+                systemctl start systemd-resolved > /dev/null 2>&1
+                ln -sf /run/systemd/resolve/resolv.conf /etc/resolv.conf
+
+	fi
+
+	if [ $ifconfig_type = 'static' ]
+	then
+		if [ -z $ipaddress ] || [ -z $netmask ] || [ -z $gateway ] || [ -z $dns1$dns2 ]
+		then
+			echo "Static IP information incomplete"
+			rm -rf $TMP
+			exit 1
+		fi
+		if [ $AUTOMAGIC -eq 0 ]
+		then
+			echo "Setting network interface to static addressing"
+		fi
+                # write systemd style network file to /etc/systemd/network/eth0.network
+                echo "[Match]" >/etc/systemd/network/eth0.network
+                echo "Name=eth0" >>/etc/systemd/network/eth0.network
+                echo >>/etc/systemd/network/eth0.network
+                echo "[Network]" >>/etc/systemd/network/eth0.network
+		numbits=$(mask2cidr $netmask)
+                echo "Address=$ipaddress/$numbits" >>/etc/systemd/network/eth0.network
+                echo "Gateway=$gateway" >>/etc/systemd/network/eth0.network
+                echo "" >>/etc/systemd/network/eth0.network
+                echo >>/etc/systemd/network/eth0.network
+		# Setup resolv.conf
+                rm -f $RESOLVPATH
+                touch $RESOLVPATH
+                if [ ! -z $dns1 ]
+                then
+                        echo "nameserver $dns1" >> $RESOLVPATH
+                fi
+                if [ ! -z $dns2 ]
+                then
+                        echo "nameserver $dns2" >> $RESOLVPATH
+                fi
+
+                # create /etc/hosts for static IP
+                echo "127.0.0.1         localhost" >/etc/hosts
+                echo "$ipaddress               $FQDN   $Hostname" >>/etc/hosts
+                echo >>/etc/hosts
+                echo "# The following lines are desirable for IPv6 capable hosts" >>/etc/hosts
+                echo "::1     localhost ip6-localhost ip6-loopback" >>/etc/hosts
+                echo "ff02::1 ip6-allnodes" >>/etc/hosts
+                echo "ff02::2 ip6-allrouters" >>/etc/hosts
+                echo >>/etc/hosts
+
+                # Disable and stop systemd DHCP
+                systemctl disable systemd-resolved > /dev/null 2>&1
+                systemctl stop systemd-resolved > /dev/null 2>&1
+
+	fi
+
+	if [ $ifconfig_type = 'custom' ] && [ $AUTOMAGIC -eq 0 ]
+	then
+		echo "Not changing network configurarion (as requested)"
+	fi
+
+echo $HOSTNAME >/etc/hostname
+
+#################
+################
+
 else
 	SCPATH=/etc/sysconfig
-	
+
 	if [ ! -f $SCPATH/network ]
 	then
 		echo "Problem with Centos networking setup!"
+
 		rm -rf $TMP
 		exit 1
 	fi
@@ -711,7 +857,7 @@ else
 
 	if [ $ifconfig_type = 'static' ]
 	then
-		if [ -z $ipaddress ] || [ -z $netmask ] || [ -z $gateway ] || [ -z $dns1$dns2 ] 
+		if [ -z $ipaddress ] || [ -z $netmask ] || [ -z $gateway ] || [ -z $dns1$dns2 ]
 		then
 			echo "Static IP information incomplete"
 			rm -rf $TMP

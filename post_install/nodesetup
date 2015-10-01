@@ -105,14 +105,14 @@ then
                 if [ -x /usr/bin/curl ] && [ -e /etc/ssl/certs/ca-certificates.crt ]
                 then
                         TMPF=/tmp/pcf.sh
-                        /bin/rm $TMPF > /dev/null 2>&1
-                        curl -L -s https://allstarlink.org/config/portalconfig.sh -o $TMPF
-                        if [ $? -ne 0 ]
-                        then
-                                echo "curl was not able to download necessary script file, sorry."
-                                exit 1
-                        fi
-			exit 0
+                        # /bin/rm $TMPF > /dev/null 2>&1
+			# curl -L -s https://allstarlink.org/config/portalconfig.sh -o $TMPF
+                        # if [ $? -ne 0 ]
+                        # then
+                        #         echo "curl was not able to download necessary script file, sorry."
+                        #        exit 1
+                        # fi
+			# SSZ exit 0
                         bash $TMPF
                         if [ $? -ne 0 ]
                         then

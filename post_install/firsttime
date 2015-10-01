@@ -41,6 +41,8 @@ then
 	read ANSWER
 	if [ $ANSWER = Y ] || [ $ANSWER = y ]
 	then
+		echo "Please set a new root password"
+		echo ""
 		while ! passwd
 		do
 			echo "ERROR: A valid password must be assigned to continue"
