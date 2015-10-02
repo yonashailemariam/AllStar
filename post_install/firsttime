@@ -24,25 +24,25 @@ function promptyn ()
 # The purpose of this script is to ask some key configuration questions,
 # save the configuration, and reboot.
 #
-# This needs to be moved to required
-# apt-get install curl -y
 #
 if [ -e /etc/asterisk/firsttime ]
 then
+	echo "Welcome to the Bare Metal Install for AllStar Asterisk"
 	echo ""
-	echo "It appears that this is the first time this system"
-	echo "has been booted. It would be prudent to change a few"
+	echo "It appears that this is the first time you have"
+	echo "logged into this system. It would be prudent to change a few"
 	echo "key settings now for the sake of security and convenience."
 	echo "Once this information is entered, the system will reboot"
 	echo "and the next time the system boots, this message will not"
-	echo "re-appear."
+	echo "re-appear on login."
 	echo ""
+        echo "you MUST first set the root password"
+        echo ""
+
 	echo -n "Would you like to do this now (Y/N)? "
 	read ANSWER
 	if [ $ANSWER = Y ] || [ $ANSWER = y ]
 	then
-		echo "Please set a new root password"
-		echo ""
 		while ! passwd
 		do
 			echo "ERROR: A valid password must be assigned to continue"
@@ -83,12 +83,21 @@ then
 			/usr/local/sbin/netsetup
 		fi
 
+
+                if [ -e /usr/local/sbin/activate_node ]
+                then
                         echo ""
+                        echo "You can now activate your node."
+
+                        /usr/local/sbin/activate_node
+                fi
+
+			echo ""
                         echo "Setup is complete"
                         echo -n "Press any key to reboot "
                         read ANSWER
 
-exit 0
+			exit 0
 
 		rm /etc/asterisk/firsttime
 

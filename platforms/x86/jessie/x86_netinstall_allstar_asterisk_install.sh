@@ -13,7 +13,7 @@
 apt-get remove nfs-common -y
 apt-get purge rpcbind -y
 apt-get autoremove -y
-echo "removed NFSand rpcbind" >>/var/log/install.log
+echo "removed NFS and rpcbind" >>/var/log/install.log
 
 
 # Enable and start systemd networking
@@ -110,7 +110,7 @@ netstat -tnap >> /var/log/netstat.txt
 # setup for Phase 3
 cp /srv/post_install/* /usr/local/sbin
 
-# Dosabled for now
+# Disabled for now
 # touch /etc/asterisk/firsttime
 
 echo "test -e /etc/asterisk/firsttime && /usr/local/sbin/firsttime" >>/root/.bashrc

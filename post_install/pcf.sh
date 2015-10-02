@@ -2,6 +2,8 @@
 #
 # portalconfig.sh
 #
+# SSZ was here
+# PORTAL_CONFIG should be moved to /etc/asterisk
 PORTAL_CONFIG=/etc/portal-config
 CONFIGS=/etc/asterisk
 ORIGCONFIGS=/etc/asterisk-original
@@ -670,8 +672,8 @@ then
 elif [ $ISDEBX -eq 1 ]
 then
 
-	INTPATH=/etc/network/interfaces
-	IFUPDPATH=/etc/network/if-up.d/touchfile
+	INTPATH=/etc/hostname
+	IFUPDPATH=/etc/hosts
 
 IP=$(grep Address= /etc/systemd/network/eth0.network | awk -F'=' '{print $2}' | awk -F'/' '{print $1}')
         if [ -z $IP ]
@@ -697,14 +699,13 @@ echo "New DNS 2 is $dns2"
 FQDN="$Hostname.$DOMN"
 echo "New FQDN is $FQDN"
 echo ""
-# exit 0
 
-#	if [ ! -f $INTPATH ] || [ ! -f $IFUPDPATH ]
-#	then
-#		echo "Problem with Debian Linux networking setup!"
-#		rm -rf $TMP
-#		exit 1
-#	fi
+	if [ ! -f $INTPATH ] || [ ! -f $IFUPDPATH ]
+	then
+		echo "Problem with Debian Linux networking setup!"
+		rm -rf $TMP
+		exit 1
+	fi
 
 	if [ ! -z $Hostname ]
 	then
@@ -802,8 +803,6 @@ echo ""
 	then
 		echo "Not changing network configurarion (as requested)"
 	fi
-
-echo $HOSTNAME >/etc/hostname
 
 #################
 ################

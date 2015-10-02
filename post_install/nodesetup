@@ -2,7 +2,8 @@
 #
 # nodesetup.sh
 #
-DRY_RUN=1
+DRY_RUN=0
+PCF_LOCAL=1
 CONFIGS=/etc/asterisk
 TMP=/tmp
 SENABLE=1
@@ -83,12 +84,6 @@ echo "Please make sure you understand these consequences if you"
 echo "choose to change the system configuration type."
 echo
 
-promptyn "Would you like to modify your system configuration type now"
-if [ "$ANSWER" = "Y" ]
-then
-        /usr/local/sbin/modconfig
-fi
-
 promptny "Would you like your config files be provided by the Allstar Portal server"
 if [ "$ANSWER" = "Y" ]
 then
@@ -105,14 +100,19 @@ then
                 if [ -x /usr/bin/curl ] && [ -e /etc/ssl/certs/ca-certificates.crt ]
                 then
                         TMPF=/tmp/pcf.sh
-                        # /bin/rm $TMPF > /dev/null 2>&1
-			# curl -L -s https://allstarlink.org/config/portalconfig.sh -o $TMPF
-                        # if [ $? -ne 0 ]
-                        # then
-                        #         echo "curl was not able to download necessary script file, sorry."
-                        #        exit 1
-                        # fi
-			# SSZ exit 0
+                        /bin/rm $TMPF > /dev/null 2>&1
+			curl -L -s https://allstarlink.org/config/portalconfig.sh -o $TMPF
+                        if [ $? -ne 0 ]
+                        then
+                                echo "curl was not able to download necessary script file, sorry."
+                                exit 1
+                        fi
+
+			if [ $PCF_LOCAL -eq 1 ]
+				then
+                			cp /usr/local/sbin/pcf.sh $TMPF
+        		fi
+
                         bash $TMPF
                         if [ $? -ne 0 ]
                         then
@@ -164,7 +164,7 @@ fi
 
 if [ -e $CONFIGS/iax.conf ]
 
-then	
+then
         grep -q -s register\.allstarlink\.org $CONFIGS/iax.conf || die "No allstar link register statement in iax.conf! (old file maybe?)"
 	REG1=$(grep 'register =' $CONFIGS/iax.conf | awk -F'=' '{print $2}' | awk -F'	;' '{print $1}')
 	REG=$(echo "$REG1" | awk -F'@' '{print $1}')
@@ -200,7 +200,7 @@ then
 		die "Enable not fully specified in savenode.conf!"
 	fi
 fi
-	
+
 echo "OK, the format of the files is understandable!"
 echo
 
@@ -254,7 +254,7 @@ else
 	echo "Nothing to do!"
 	exit 0
 fi
-	
+
 if [ ! -z $ID ]
 then
 	echo "Updating rpt.conf with new ID..."
@@ -320,4 +320,4 @@ else
 	echo
 fi
 exit 0
- 
+

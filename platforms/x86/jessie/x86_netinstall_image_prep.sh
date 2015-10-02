@@ -27,14 +27,14 @@ echo "removed sshd ipv6 listener" >>/var/log/install.log
 wget https://github.com/N4IRS/AllStar/raw/master/patches/patch-exim4 -O /tmp/patch-exim4
 cd /etc/default/
 patch </tmp/patch-exim4
-echo "disable exim4 daemon" >>/var/log/install.log
+echo "disabled exim4 daemon" >>/var/log/install.log
 
 # Disable /etc/network/interfaces
 # This could be a simple delete file
 wget https://github.com/N4IRS/AllStar/raw/master/patches/patch-interfaces -O /tmp/patch-interfaces
 cd /etc/network
 patch </tmp/patch-interfaces
-echo "Disable /etc/network/interfaces" >>/var/log/install.log
+echo "Disabled /etc/network/interfaces" >>/var/log/install.log
 
 # Setup systemd networking
 echo "[Match]" >>/etc/systemd/network/eth0.network
