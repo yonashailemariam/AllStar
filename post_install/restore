@@ -1,8 +1,0 @@
-#! /bin/sh
-cp /srv/etc/hostname /etc/hostname
-cp /srv/etc/hosts /etc/hosts
-cp /srv/etc/systemd/network/eth0.network /etc/systemd/network/eth0.network
-
-cp /srv/configs/iax.conf /etc/asterisk/iax.conf
-cp /srv/configs/extensions.conf /etc/asterisk/extensions.conf
-cp /srv/configs/rpt.conf /etc/asterisk/rpt.conf

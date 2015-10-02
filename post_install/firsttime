@@ -27,6 +27,7 @@ function promptyn ()
 #
 if [ -e /etc/asterisk/firsttime ]
 then
+	echo ""
 	echo "Welcome to the Bare Metal Install for AllStar Asterisk"
 	echo ""
 	echo "It appears that this is the first time you have"
@@ -96,8 +97,6 @@ then
                         echo "Setup is complete"
                         echo -n "Press any key to reboot "
                         read ANSWER
-
-			exit 0
 
 		rm /etc/asterisk/firsttime
 

@@ -110,8 +110,7 @@ netstat -tnap >> /var/log/netstat.txt
 # setup for Phase 3
 cp /srv/post_install/* /usr/local/sbin
 
-# Disabled for now
-# touch /etc/asterisk/firsttime
+touch /etc/asterisk/firsttime
 
 echo "test -e /etc/asterisk/firsttime && /usr/local/sbin/firsttime" >>/root/.bashrc
 
