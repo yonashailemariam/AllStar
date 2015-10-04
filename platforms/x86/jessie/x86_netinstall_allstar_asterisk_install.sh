@@ -80,6 +80,10 @@ cp /var/log/install.log /var/log/install_phase1.log
 /srv/scripts/build_dahdi.sh
 echo "build DAHDI complete" >>/var/log/install.log
 
+# build libpri
+/srv/scripts/build_libpri.sh
+echo "build libpri complete" >>/var/log/install.log
+
 # Build Asterisk
 /srv/scripts/build_asterisk.sh
 echo "build Asterisk complete" >>/var/log/install.log
