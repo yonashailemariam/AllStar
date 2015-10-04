@@ -84,14 +84,6 @@ then
 		fi
 
 
-                if [ -e /usr/local/sbin/activate_node ]
-                then
-                        echo ""
-                        echo "You can now activate your node."
-
-                        /usr/local/sbin/activate_node
-                fi
-
 			echo ""
                         echo "Setup is complete"
                         echo -n "Press any key to reboot "

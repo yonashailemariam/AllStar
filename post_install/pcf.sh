@@ -269,7 +269,7 @@ then
 			GOTIT=0
 			I=1
 			while [ $I -le $ANSWER ]
-			do 
+			do
 				read LINE
 				S=`echo $LINE | cut -f2 -d,`
 				C=`echo $LINE | cut -f1 -d,`
@@ -674,6 +674,7 @@ then
 
 	INTPATH=/etc/hostname
 	IFUPDPATH=/etc/hosts
+	sed -i 's/Zap\//DAHDI\//g' $TMP/rpt.conf
 
 IP=$(grep Address= /etc/systemd/network/eth0.network | awk -F'=' '{print $2}' | awk -F'/' '{print $1}')
         if [ -z $IP ]
