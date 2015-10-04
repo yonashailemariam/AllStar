@@ -62,6 +62,10 @@ echo "put rc.local back to default" >>/var/log/install.log
 /srv/scripts/required_libs.sh
 echo "install required libs" >>/var/log/install.log
 
+# install required
+/srv/scripts/build_tools.sh
+echo "install build tools" >>/var/log/install.log
+
 # needs to be moved
 # apt-get install curl -y
 
