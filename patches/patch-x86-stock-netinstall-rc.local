@@ -1,11 +1,11 @@
---- rc.local	2015-10-04 10:33:46.536611106 -0400
+--- rc.local	2015-10-04 11:35:59.447405087 -0400
 +++ rc.local	2015-10-04 10:32:49.046116298 -0400
-/* Run AllStar install on first boot after netinstall */
-/* N4IRS 10-04-2015  */
+/* Remove install startup after AllStar install finishes */
+/* N4IRS 07-29-2015  */
 @@ -10,5 +10,5 @@
  # bits.
  #
  # By default this script does nothing.
--/srv/x86_netinstall_allstar_asterisk_install.sh | tee /dev/tty1 >>/var/log/install.log
+-/srv/x86_netinstall_allstar_asterisk_install.sh | tee /dev/tty1 >>/var/log/install.log &
 +
  exit 0
