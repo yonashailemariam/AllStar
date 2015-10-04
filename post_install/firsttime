@@ -28,7 +28,7 @@ function promptyn ()
 if [ -e /etc/asterisk/firsttime ]
 then
 	echo ""
-	echo "Welcome to the Bare Metal Install for AllStar Asterisk"
+	echo "Welcome to the X86 Debian Bare Metal Install"
 	echo ""
 	echo "It appears that this is the first time you have"
 	echo "logged into this system. It would be prudent to change a few"
@@ -39,7 +39,6 @@ then
 	echo ""
         echo "you MUST first set the root password"
         echo ""
-
 	echo -n "Would you like to do this now (Y/N)? "
 	read ANSWER
 	if [ $ANSWER = Y ] || [ $ANSWER = y ]

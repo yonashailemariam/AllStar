@@ -59,11 +59,11 @@ patch </srv/patches/patch-x86-stock-netinstall-rc.local
 echo "put rc.local back to default" >>/var/log/install.log
 
 # install required
-# /srv/scripts/required_libs.sh
-# echo "install requires" >>/var/log/install.log
+/srv/scripts/required_libs.sh
+echo "install required libs" >>/var/log/install.log
 
 # needs to be moved
-apt-get install curl -y
+# apt-get install curl -y
 
 # get AllSter, DAHDI and kernel headers
 /srv/scripts/get_src.sh
