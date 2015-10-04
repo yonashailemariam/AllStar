@@ -83,6 +83,14 @@ then
 			/usr/local/sbin/netsetup
 		fi
 
+                if [ -e /usr/local/sbin/nodesetup ]
+                then
+                        echo "You can now configure your node or"
+                        echo "download a configuration from AllStarLink"
+                        echo ""
+
+                        /usr/local/sbin/nodesetup
+                fi
 
 			echo ""
                         echo "Setup is complete"
