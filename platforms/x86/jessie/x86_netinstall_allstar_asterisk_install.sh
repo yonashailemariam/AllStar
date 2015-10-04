@@ -25,7 +25,7 @@ systemctl start systemd-networkd systemd-resolved
 # ln -sf /run/systemd/resolve/resolv.conf /etc/resolv.conf
 echo "start networking" >>/var/log/install.log
 
-sleep 10
+sleep 20
 
 # Log UDP and TCP listeners during install process
 echo > /var/log/netstat.txt
