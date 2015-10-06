@@ -674,7 +674,30 @@ then
 
 	INTPATH=/etc/hostname
 	IFUPDPATH=/etc/hosts
+
+	# replace Zap with DAHDI
 	sed -i 's/Zap\//DAHDI\//g' $TMP/rpt.conf
+
+# rpt.conf
+# rxchannel=Radio/usb
+# rxchannel = SimpleUSB/usb
+
+# /etc/asterisk/modules.conf
+# load => chan_simpleusb.so ;                     Simple USB Radio Interface Channel Drive
+# noload => chan_usbradio.so ;                    USB Console Channel Driver
+
+        RXCHAN=`grep 'rxchannel=Radio' $TMP/rpt.conf`
+        if [ -z $RXCHAN ]
+                then
+                        # rxchannel=SimpleUSB/usb chan_simpleusb
+                        sed -i 's/noload => chan_simpleusb.so/load => chan_simpleusb.so/g' /etc/asterisk/modules.conf
+                        sed -i 's/load => chan_usbradio.so/noload => chan_usbradio.so/g' /etc/asterisk/modules.conf
+        else
+                        # rxchannel=Radio/usb chan_usbradio
+                        sed -i 's/load => chan_simpleusb.so/noload => chan_simpleusb.so/g' /etc/asterisk/modules.conf
+                        sed -i 's/noload => chan_usbradio.so/load => chan_usbradio.so/g' /etc/asterisk/modules.conf
+
+        fi
 
 IP=$(grep Address= /etc/systemd/network/eth0.network | awk -F'=' '{print $2}' | awk -F'/' '{print $1}')
         if [ -z $IP ]
