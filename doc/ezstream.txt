@@ -42,7 +42,4 @@ You will need to add / edit your passwords etc.
 
 </ezstream>
 
-I enabled this: load => app_chanspy.so ; Listen to the audio of an active channel
-not sure if that mattered though, seemed like it would be important...
-
 From Mark KC7DMF 
