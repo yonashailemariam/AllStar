@@ -307,8 +307,8 @@ then
 	sed -i 's/; register =/register =/g' $TMP/iax.conf.in
 
 	# Used the $ in place of the /
-	sed -i 's$;statpost_program = /usr/bin/wget$statpost_program = /usr/bin/wget$g' $TMP/rpt.conf
-	sed -i "0,/statpost_url/ s/;statpost_url /statpost_url/" $TMP/rpt.conf
+	sed -i 's$;statpost_program = /usr/bin/wget$statpost_program = /usr/bin/wget$g' $TMP/rpt.conf.in
+	sed -i "0,/statpost_url/ s/;statpost_url /statpost_url/" $TMP/rpt.conf.in
 
 	echo "Updating original config files..."
 	mv -f $TMP/rpt.conf.in $CONFIGS/rpt.conf || die "mv 8 failed"
