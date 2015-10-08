@@ -55,6 +55,11 @@ INTPATH=/etc/network/interfaces
 IFUPDPATH=/etc/network/if-up.d/touchfile
 RESOLVPATH=/etc/resolv.conf
 
+HOSTN=$(cat /etc/hostname)
+FQDN=$(hostname -f)
+DOMN=$(hostname -d)
+HOSTNAME=`echo $FQDN |awk -F. '{ print $1 }'`
+
 echo ""
 echo "***** Network interface setup *****"
 echo ""
@@ -66,7 +71,7 @@ then
 fi
 while [ -z $IFMODE ]
 do
-        echo -n "Do you want to set up (S)tatic or (D)HCP for the main network interface (S/D)?"
+        echo -n "Do you want to set up (S)tatic or (D)HCP for the main network interface (S/D)? "
 	read IFMODE
 	if [ $IFMODE = S ] || [ $IFMODE = s ]
 	then
@@ -91,28 +96,39 @@ do
 			echo "Default Gateway  : $DGW"
 			echo "Primary DNS      : $PDNS"
 			echo "Secondary DNS    : $SDNS"
+			echo "hostname is $HOSTN"
+			echo "Domain Name is $DOMN"
+			echo "FQDN is $FQDN"
 			echo ""
 			promptyn "Is this OK"
 			if [ $ANSWER = Y ] 
 			then
 			numbits=$(mask2cidr $NETMASK)
 			# echo "/$numbits"
-
-                                echo ""
-                                echo "Setting network interface to static addressing"
-                                # write systemd style network file
-				echo "[Match]" >/etc/systemd/network/eth0.network
-				echo "Name=eth0" >>/etc/systemd/network/eth0.network
-				echo >>/etc/systemd/network/eth0.network
-				echo "[Network]" >>/etc/systemd/network/eth0.network
-				echo "Address=$IPADDR/$numbits" >>/etc/systemd/network/eth0.network
-                                echo "Gateway=$DGW" >>/etc/systemd/network/eth0.network
-                                echo "" >>/etc/systemd/network/eth0.network
-				echo >>/etc/systemd/network/eth0.network
-				rm -rf /etc/resolv.conf
-                                echo "nameserver $PDNS" >/etc/resolv.conf
-                                echo "nameserver $SDNS" >>/etc/resolv.conf
-
+                        echo ""
+                        echo "Setting network interface to static addressing"
+                        # write systemd style network file
+			echo "[Match]" >/etc/systemd/network/eth0.network
+			echo "Name=eth0" >>/etc/systemd/network/eth0.network
+			echo >>/etc/systemd/network/eth0.network
+			echo "[Network]" >>/etc/systemd/network/eth0.network
+			echo "Address=$IPADDR/$numbits" >>/etc/systemd/network/eth0.network
+                        echo "Gateway=$DGW" >>/etc/systemd/network/eth0.network
+                        echo "" >>/etc/systemd/network/eth0.network
+			echo >>/etc/systemd/network/eth0.network
+			# write resolv.conf
+			rm -rf /etc/resolv.conf
+                        echo "nameserver $PDNS" >/etc/resolv.conf
+                        echo "nameserver $SDNS" >>/etc/resolv.conf
+			# write /etc/hosts for static IP
+			echo "127.0.0.1		localhost" >/etc/hosts
+			echo "$IPADDR		$FQDN	$HOSTNAME" >>/etc/hosts
+			echo >>/etc/hosts
+			echo "# The following lines are desirable for IPv6 capable hosts" >>/etc/hosts
+			echo "::1     localhost ip6-localhost ip6-loopback" >>/etc/hosts
+			echo "ff02::1 ip6-allnodes" >>/etc/hosts
+			echo "ff02::2 ip6-allrouters" >>/etc/hosts
+			echo >>/etc/hosts
 			# Dnable and stop systemd DHCP
                         systemctl disable systemd-resolved > /dev/null 2>&1
                         systemctl stop systemd-resolved > /dev/null 2>&1
@@ -124,16 +140,25 @@ do
 		done
 	elif [ $IFMODE = D ] || [ $IFMODE = d ]
 	then
-                                echo ""
-                                echo "Setting network interface to DHCP addressing"
-                                # write systemd style network file
-                                echo "[Match]" >/etc/systemd/network/eth0.network
-                                echo "Name=eth0" >>/etc/systemd/network/eth0.network
-                                echo >>/etc/systemd/network/eth0.network
-                                echo "[Network]" >>/etc/systemd/network/eth0.network
-                                echo "DHCP=v4" >>/etc/systemd/network/eth0.network
-                                echo "" >>/etc/systemd/network/eth0.network
-                                echo >>/etc/systemd/network/eth0.network
+                       echo ""
+                       echo "Setting network interface to DHCP addressing"
+                       # write systemd style network file
+                       echo "[Match]" >/etc/systemd/network/eth0.network
+                       echo "Name=eth0" >>/etc/systemd/network/eth0.network
+                       echo >>/etc/systemd/network/eth0.network
+                       echo "[Network]" >>/etc/systemd/network/eth0.network
+                       echo "DHCP=v4" >>/etc/systemd/network/eth0.network
+                       echo "" >>/etc/systemd/network/eth0.network
+                       echo >>/etc/systemd/network/eth0.network
+                       # write /etc/hosts for DHCP
+                       echo "127.0.0.1         localhost" >/etc/hosts
+                       echo "127.0.0.1         $FQDN   $HOSTNAME" >>/etc/hosts
+                       echo >>/etc/hosts
+                       echo "# The following lines are desirable for IPv6 capable hosts" >>/etc/hosts
+                       echo "::1     localhost ip6-localhost ip6-loopback" >>/etc/hosts
+                       echo "ff02::1 ip6-allnodes" >>/etc/hosts
+                       echo "ff02::2 ip6-allrouters" >>/etc/hosts
+                       echo >>/etc/hosts
 
                         # enable and start systemd DHCP
 			systemctl enable systemd-resolved > /dev/null 2>&1
