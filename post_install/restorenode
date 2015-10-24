@@ -1,6 +1,25 @@
 #! /bin/bash
 SAVESITE=http://backup.allstarlink.org
 
+# Yes/No function for script interaction
+
+function promptyn ()
+{
+        echo -n "$1 [y/N]? "
+        read ANSWER
+    if [ ! -z $ANSWER ]
+    then
+               if [ $ANSWER = Y ] || [ $ANSWER = y ]
+              then
+                    ANSWER=Y
+            else
+                    ANSWER=N
+            fi
+    else
+        ANSWER=N
+    fi
+}
+
 function get_hrefs() {
     wget -O - --http-user=${NODE} --http-password=${PASSWORD} backup.allstarlink.org |\
     grep -o '<A .*HREF=.*>' |\
@@ -50,4 +69,18 @@ backup=`select_backup`
 echo ""
 echo "Saving $backup from $SAVESITE to /srv/download/astsave.tgz"
 
-wget -q --timeout=60 --tries=1 --http-user=${USER} --http-password=${PASSWORD} -O /srv/download/astsave.tgz  http://backup.allstarlink.org/getfile.cgi?$backup
+cd /srv/download
+wget -q --timeout=60 --tries=1 --http-user=${NODE} --http-password=${PASSWORD} -O /srv/download/astsave.tgz  http://backup.allstarlink.org/getfile.cgi?$backup
+echo ""
+echo "Ready to restore the node configuration you downloaded"
+echo ""
+promptyn "Do you want to do this now"
+
+if [ $ANSWER = N ]
+then
+        exit 0
+fi
+
+cd /
+tar xzf /srv/download/astsave.tgz
+

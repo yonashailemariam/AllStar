@@ -106,12 +106,10 @@ mask2cidr() {
     echo "$nbits"
 }
 
-# SSZ
-# DEBEX = Debian X86, X64
 ISDEBX=0
 if [ -r /etc/debian_version ]
 then
-	uname -omv | grep -E 'Debian.*i686' > /dev/null 2>&1
+	uname -omv | grep -E 'Debian' > /dev/null 2>&1
         if [ $? -eq 0 ]
         then
                 ISDEBX=1
@@ -130,7 +128,7 @@ fi
 
 ISBEAGLE=0
 ISBBB=0
-if [ `uname -m` = 'armv7l' ]
+if [ `uname -m` = 'armv7lx' ]
 then
 	if [ -f /etc/bbb_allstar_version ]
 	then

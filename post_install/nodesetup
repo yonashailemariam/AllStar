@@ -234,7 +234,6 @@ then
 	ANYNEW=1
 fi
 
-SAVENODE_ENABLE=1
 if [ $SAVENODE_ENABLE -ne $SENABLE ] 
 then
 	ANYNEW=1
