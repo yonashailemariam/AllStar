@@ -12,7 +12,8 @@ svnversion >asterisk/.version
 
 mkdir -p /srv/download
 cd /srv/download
-wget http://downloads.asterisk.org/pub/telephony/dahdi-linux-complete/dahdi-linux-complete-current.tar.gz
+# wget http://downloads.asterisk.org/pub/telephony/dahdi-linux-complete/dahdi-linux-complete-current.tar.gz
+wget https://github.com/N4IRS/AllStar/raw/master/dahdi-linux-complete-current.tar.gz
 
 # Clean out unneeded source and add dahdi source
 cd /usr/src/astsrc-1.4.23-pre
