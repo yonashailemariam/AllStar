@@ -31,11 +31,6 @@ login: root	password: debian
 
 Debian Bare Metal x86 installer:
 
-http://tinyurl.com/x86-DIAL
-
-Raspberry Pi2 Image:
-
-http://tinyurl.com/RPi2-DIAL
-
+https://drive.google.com/file/d/0ByDmt8HV_FwMRHNJbjV4ZlJrZFU/view
 
 
