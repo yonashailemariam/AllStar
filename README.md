@@ -31,6 +31,6 @@ login: root	password: debian
 
 Debian Bare Metal x86 installer:
 
-https://drive.google.com/file/d/0ByDmt8HV_FwMNnM1aU5pWmlXUUE/view?usp=sharing
+https://drive.google.com/file/d/0ByDmt8HV_FwMRHNJbjV4ZlJrZFU/view
 
 
