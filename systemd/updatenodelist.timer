@@ -1,0 +1,8 @@
+[Unit]
+Description=MMDVMHost 60 seconds after boot
+
+[Timer]
+OnBootSec=60sec
+
+[Install]
+WantedBy=multi-user.target
