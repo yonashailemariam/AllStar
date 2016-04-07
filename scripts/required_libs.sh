@@ -31,4 +31,4 @@ apt-get install curl -y
 # is sox required or nice to have
 apt-get install sox -y
 apt-get install usbutils -y
-
+apt-get install alsa-utils -y
