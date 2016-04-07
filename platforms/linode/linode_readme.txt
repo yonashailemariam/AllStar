@@ -4,9 +4,11 @@
 
 # power down your image
 
+# For KVM
 # https://www.linode.com/docs/tools-reference/custom-kernels-distros/run-a-distribution-supplied-kernel-with-kvm
 
 # make the changes to your image:
+
 # https://www.linode.com/docs/tools-reference/custom-kernels-distros/run-a-distributionsupplied-kernel-with-pvgrub#debi$
 # follow 64-bit Debian
 
