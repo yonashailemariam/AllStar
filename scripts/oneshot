@@ -1,0 +1,24 @@
+#! /bin/sh
+
+#####################################################
+#                                                   #
+# Install libs required to install AllStar Asterisk #
+#                                                   #
+#####################################################
+
+# Disable:
+systemctl disable dhcpcd.service
+systemctl disable avahi-daemon
+systemctl disable ntp.service
+
+# Enable:
+systemctl enable systemd-networkd.service
+systemctl enable systemd-resolved.service
+systemctl enable systemd-networkd-wait-online.service
+
+# Start:
+systemctl start systemd-networkd.service
+systemctl start systemd-resolved.service
+
+ln -sf /run/systemd/network/resolv.conf /etc/resolv.conf
+
