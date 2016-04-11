@@ -69,7 +69,7 @@ DESTDIR=/var/lib/asterisk/sounds/rpt/nodenames
 
 # Definitions of sound file directories
 
-NODENAMES=/var/lib/asterisk/sounds-gsm/rpt/nodenames
+NODENAMES=/var/lib/asterisk/sounds/rpt/nodenames
 LETTERS=/var/lib/asterisk/sounds-gsm/letters
 NUMBERS=/var/lib/asterisk/sounds-gsm/digits
 STRING=""
