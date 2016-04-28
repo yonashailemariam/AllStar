@@ -4,6 +4,7 @@ then
 	echo "Asterisk is currently running!"
 else
 	echo "Starting asterisk..."
+        echo "systemctl start asterisk.service"
 	systemctl start asterisk.service
 fi
 

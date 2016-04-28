@@ -2,6 +2,7 @@
 if [ -e /var/run/asterisk.ctl ]
 then
 	echo "Stopping Asterisk..."
+        echo "systemctl stop asterisk.service"
 	systemctl stop asterisk.service
 
 else

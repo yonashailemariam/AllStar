@@ -2,6 +2,7 @@
 if [ -e /var/run/asterisk.ctl ]
 then
 	echo "Restarting Asterisk"
+        echo "systemctl restart asterisk.service"
 	systemctl restart asterisk.service
 else
 	echo "Asterisk is not running!"
