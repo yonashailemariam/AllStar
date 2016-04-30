@@ -3,6 +3,7 @@
 # Get the kernel-headers for the running kernel
 apt-get install linux-headers-`uname -r` -y
 
+# Get Asterisk
 cd /usr/src
 svn checkout http://svn.ohnosec.org/svn/projects/allstar/astsrc-1.4.23-pre/trunk astsrc-1.4.23-pre
 
