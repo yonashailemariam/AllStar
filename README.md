@@ -35,7 +35,7 @@ http://tinyurl.com/x86-DIAL
 
 Raspberry Pi2 disk image:
 
-tinyurl.com/rpi2-dial-V101
+http://tinyurl.com/rpi2-dial-V101
 
 Android IAX Client
 
