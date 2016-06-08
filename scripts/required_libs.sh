@@ -32,3 +32,5 @@ apt-get install curl -y
 apt-get install sox -y
 apt-get install usbutils -y
 apt-get install alsa-utils -y
+apt-get install bc -y
+apt-get install dnsutils -y
