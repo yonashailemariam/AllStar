@@ -2,9 +2,14 @@
 
 #####################################################
 #                                                   #
-# Install libs required to install AllStar Asterisk #
+#Stop unneeded services and listenere               #
 #                                                   #
 #####################################################
+
+# Stop:
+systemctl stop dhcpcd.service
+systemctl stop avahi-daemon
+systemctl stop ntp.service
 
 # Disable:
 systemctl disable dhcpcd.service
@@ -16,9 +21,16 @@ systemctl enable systemd-networkd.service
 systemctl enable systemd-resolved.service
 systemctl enable systemd-networkd-wait-online.service
 
+/srv/scripts/mk_eth0.network.sh
+
 # Start:
 systemctl start systemd-networkd.service
 systemctl start systemd-resolved.service
 
-ln -sf /run/systemd/network/resolv.conf /etc/resolv.conf
+ln -sf /run/systemd/resolve/resolv.conf /etc/resolv.conf
+
+ntpd -gq > /dev/null 2>&1 &
+
+systemctl set-default multi-user.target
+ln -fs /lib/systemd/system/getty@.service /etc/systemd/system/getty.target.wants/getty@tty1.service
 

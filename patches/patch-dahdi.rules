@@ -17,7 +17,7 @@
  SUBSYSTEM=="dahdi_channels", ATTRS{location}!="",	SYMLINK+="dahdi/devices/@%s{location}/%s{local_spanno}/%n"
  
 +#  Mask the "error" in /var/log/asterisk/messages
-+KERNEL=="dahdi/pseudo", SUBSYSTEM=="dahdi",    SYMLINK+="zap/pseudo"
++KERNEL=="dahdi/pseudo", SUBSYSTEM=="dahdi",    SYMLINK+="zap/pseudo", TAG+="systemd"
 +
  LABEL="dahdi_add_end"
  

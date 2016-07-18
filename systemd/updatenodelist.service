@@ -1,7 +1,8 @@
 #/usr/lib/systemd/system/updatenodelist.service
 [Unit]
-Description=Update AllStar NodeList
+Description=AllStar NodeList updater
 Wants=network.target
+After=network-online.target
 BindsTo=asterisk.service
 
 [Service]
@@ -16,5 +17,4 @@ RestartSec=10
 
 [Install]
 WantedBy=multi-user.target
-
 
