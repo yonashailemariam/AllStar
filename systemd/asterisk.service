@@ -5,13 +5,15 @@ Documentation=man:asterisk(8)
 Wants=network.target
 After=network.target
 BindsTo=dev-dahdi-pseudo.device
+# Below requires a addition to udev rules
+# See /srv//patches/patch-dahdi.rules
 After=dev-dahdi-pseudo.device
-# ConditionPathExists=/dev/dahdi/pseudo
+
 
 [Service]
 Type=simple
 StandardOutput=null
-ExecStart=/usr/sbin/asterisk -f -C /etc/asterisk/asterisk.conf
+ExecStart=/usr/sbin/asterisk -g -f -C /etc/asterisk/asterisk.conf
 ExecStop=/usr/sbin/asterisk -rx 'stop now'
 ExecReload=/usr/sbin/asterisk -rx 'module reload'
 
