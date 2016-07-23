@@ -39,4 +39,4 @@ http://tinyurl.com/rpi2-dial-V101
 
 Android IAX Client Version 1.13
 
-https://www.dropbox.com/s/xyu0vkvw5321vhj/AndroVoIP.apk
+https://www.dropbox.com/s/8ro9nbcndco33pn/AndroVoIP.apk
