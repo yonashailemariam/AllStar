@@ -37,6 +37,6 @@ Raspberry Pi2 disk image:
 
 http://tinyurl.com/rpi2-dial-V101
 
-Android IAX Client Version 1.13
+Android IAX Client Version 1.14
 
-https://www.dropbox.com/s/8ro9nbcndco33pn/AndroVoIP.apk
+https://play.google.com/store/apps/details?id=org.dvswitch
