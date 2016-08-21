@@ -36,6 +36,9 @@ netstat -unap >> /var/log/netstat.txt
 echo "netstat -tnap" >> /var/log/netstat.txt
 netstat -tnap >> /var/log/netstat.txt
 
+apt-get update
+apt-get upgrade -y
+
 # DL x86 tar ball
 echo "start DL of AllStar Asterisk install" >>/var/log/install.log
 
