@@ -17,8 +17,9 @@ apt-get upgrade -y
 # install required
 /srv/scripts/required_libs.sh
 
-# install libi2c-dev for RPi
+# install i2c for RPi
 apt-get install libi2c-dev -y
+apt-get install i2c-tools -y
 
 # install build_tools
 /srv/scripts/build_tools.sh
@@ -55,18 +56,40 @@ echo snd_pcm_oss >>/etc/modules
 # Install user scripts
 cp /srv/post_install/* /usr/local/sbin
 
+# Install Nodelist updater
+cp /usr/src/astsrc-1.4.23-pre/allstar/rc.updatenodelist /usr/local/bin/rc.updatenodelist
+cp /srv/scripts/log2ram /usr/local/bin
+
 # Add SayIP
-cp /srv/post_install/sayip /usr/local/
-## Add SayIP to startup
-# /usr/local/sayip/sayip.sh &
+cp -rf /srv/sayip /usr/local/
+# This needs work
+# cd /etc
+# patch </srv/patches/patch-rc.local
+
+# Moved to build_asterisk script
+# Add "AllStar Node Enabled" sound file
+# cp /srv/sounds/node_enabled.ulaw /var/lib/asterisk/sounds/rpt/
 
 # Start asterisk on boot
 cp /srv/systemd/asterisk.service /lib/systemd/system
-cp /srv/systemd/updatenodelist.service /lib/systemd/system
 systemctl enable asterisk.service
+cp /srv/systemd/updatenodelist.service /lib/systemd/system
+systemctl enable updatenodelist.service
+cp /srv/systemd/log2ram.service /lib/systemd/system
+systemctl enable log2ram.service
+
 
 # Check for updates once per day
 ln -fs /usr/local/sbin/check-update.sh /etc/cron.daily/check-update.sh
+
+# replace the files needed for supporting and testing the PiTA
+cp /srv/PiTA/cirrus.conf /etc/modprobe.d
+cp /srv/PiTA/cmdline.txt /boot
+cp /srv/PiTA/config.txt /boot
+cp /srv/PiTA/modules /etc
+cp /srv/PiTA/modules.conf /etc/asterisk
+cp /srv/PiTA/rpt.conf /etc/asterisk
+cp /srv/PiTA/simpleusb.conf /etc/asterisk
 
 touch /etc/asterisk/firsttime
 
