@@ -21,8 +21,11 @@ cd /usr/src/astsrc-1.4.23-pre
 mkdir -p /var/lib/asterisk/sounds/rpt
 cp -a /usr/src/astsrc-1.4.23-pre/sounds/* /var/lib/asterisk/sounds
 
+# Add "AllStar Node Enabled" sound file
+cp /srv/sounds/node_enabled.ulaw /var/lib/asterisk/sounds/rpt/
+
 # Build URI diag
-cd uridiag
+cd cd /usr/src/astsrc-1.4.23-pre/uridiag
 make
 chmod +x uridiag
 cp uridiag /usr/local/bin/uridiag
