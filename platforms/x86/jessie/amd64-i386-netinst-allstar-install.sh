@@ -94,10 +94,6 @@ echo "build libpri complete" >>/var/log/install.log
 # patch Asterisk
 /srv/scripts/patch_asterisk.sh
 
-# Don't install init.d scripts
-# Ugly but effective
-sed -i -e 's/debian_version/debian_version_7/g' /usr/src/astsrc-1.4.23-pre/asterisk/Makefile
-
 # Build Asterisk
 /srv/scripts/build_asterisk.sh
 echo "build Asterisk complete" >>/var/log/install.log
