@@ -113,7 +113,7 @@ cp -rf /srv/post_install/* /usr/local/sbin
 
 codename=$(lsb_release -cs)
 if [[ $codename == 'jessie' ]]; then
-  echo "codename is Jessie, using systemd units"
+  echo "codename is Jessie, using systemd units" >>/var/log/install.log
   # start update node list on boot
   cp /usr/src/astsrc-1.4.23-pre/allstar/rc.updatenodelist /usr/local/bin/rc.updatenodelist
   cp /srv/systemd/updatenodelist.service /lib/systemd/system
@@ -123,7 +123,7 @@ if [[ $codename == 'jessie' ]]; then
   cp /srv/systemd/asterisk.service /lib/systemd/system
   systemctl enable asterisk.service
 elif [[ $codename == 'wheezy' ]]; then
-  echo "codename is Wheezy, using init scripts"
+  echo "codename is Wheezy, using init scripts"  >>/var/log/install.log
   # Patch rc.local to start updatenodelist
   # Should I be using different post install scripts?
   # Should I modify the init scripts for safe asterisk?
