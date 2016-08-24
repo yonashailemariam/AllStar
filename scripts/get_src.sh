@@ -14,6 +14,9 @@ svnversion >asterisk/.version
 # download uridiag
 svn co http://svn.ohnosec.org/svn/projects/allstar/uridiag/trunk uridiag
 
+# Get DAHDI from GitHub
+# As of 8-20-2016 dahdi-linux-complete-current.tar.gz is already in the DL directory.
+# I'll move it when this version of the Bare Metal Installer is official.
 mkdir -p /srv/download
 cd /srv/download
 # wget http://downloads.asterisk.org/pub/telephony/dahdi-linux-complete/dahdi-linux-complete-current.tar.gz
