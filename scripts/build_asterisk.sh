@@ -33,7 +33,7 @@ cp uridiag /usr/local/bin/uridiag
 # Clean out and replace samples
 cd /etc/asterisk/
 rm *
-cp /srv/configs/* .
+cp -r /srv/configs/* .
 
 # Install Nodelist updater
 cp /usr/src/astsrc-1.4.23-pre/allstar/rc.updatenodelist /usr/local/bin/rc.updatenodelist
