@@ -32,7 +32,7 @@ sleep 20
 # setup ntpdate
 # add hourly clock adjustment
 # ntpdate is in the base image
-apt-get install ntpdate -y
+# apt-get install ntpdate -y
 ln -s /etc/network/if-up.d/ntpdate /etc/cron.hourly/ntpdate
 echo "Install ntpdate" >>/var/log/install.log
 
@@ -53,7 +53,7 @@ wget --no-check-certificate https://github.com/N4IRS/AllStar/archive/master.zip
 echo "download master.zip" >>/var/log/install.log
 
 # unzip the master
-apt-get install unzip -y
+# apt-get install unzip -y
 rm -f AllStar-master
 ln -s /srv AllStar-master
 unzip master.zip
