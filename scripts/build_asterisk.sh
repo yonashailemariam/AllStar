@@ -25,7 +25,7 @@ cp -a /usr/src/astsrc-1.4.23-pre/sounds/* /var/lib/asterisk/sounds
 cp /srv/sounds/node_enabled.ulaw /var/lib/asterisk/sounds/rpt/
 
 # Build URI diag
-cd cd /usr/src/astsrc-1.4.23-pre/uridiag
+cd /usr/src/astsrc-1.4.23-pre/uridiag
 make
 chmod +x uridiag
 cp uridiag /usr/local/bin/uridiag

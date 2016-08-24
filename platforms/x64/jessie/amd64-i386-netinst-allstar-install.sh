@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash
 # N4IRS 08/24/2016
 
 # This script will run the first time the system boots. Even
