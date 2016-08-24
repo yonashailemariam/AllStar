@@ -31,18 +31,10 @@ sleep 20
 
 # setup ntpdate
 # add hourly clock adjustment
+# ntpdate is in the base image
 apt-get install ntpdate -y
 ln -s /etc/network/if-up.d/ntpdate /etc/cron.hourly/ntpdate
 echo "Install ntpdate" >>/var/log/install.log
-
-# put rc.local back to default
-# Should be a simple copy
-cd /etc
-patch </srv/patches/patch-amd64-i386-stock-netinstall-rc.local
-echo "put rc.local back to default" >>/var/log/install.log
-
-#### End x86 stuff ####
-
 
 # Log UDP and TCP listeners during install process
 echo > /var/log/netstat.txt
@@ -67,6 +59,12 @@ ln -s /srv AllStar-master
 unzip master.zip
 rm AllStar-master
 echo "decompress master.zip" >>/var/log/install.log
+
+# put rc.local back to default
+# Should be a simple copy
+cd /etc
+patch </srv/patches/patch-amd64-i386-stock-netinstall-rc.local
+echo "put rc.local back to default" >>/var/log/install.log
 
 # install required
 /srv/scripts/required_libs.sh
