@@ -1,5 +1,5 @@
 #!/bin/sh -e
-# N4IRS 08/22/2016
+# N4IRS 08/24/2016
 
 # This script will run the first time the system boots. Even
 # though we've told it to run after networking is enabled,
@@ -108,6 +108,9 @@ echo "build Asterisk complete" >>/var/log/install.log
 echo snd_pcm_oss >>/etc/modules
 echo "created /dev/dsp" >>/var/log/install.log
 
+# Put user scripts into /usr/local/sbin
+cp -rf /srv/post_install/* /usr/local/sbin
+
 # start update node list on boot
 cp /usr/src/astsrc-1.4.23-pre/allstar/rc.updatenodelist /usr/local/bin/rc.updatenodelist
 cp /srv/systemd/updatenodelist.service /lib/systemd/system
@@ -128,9 +131,6 @@ cp /srv/systemd/log2ram.service /lib/systemd/system
 systemctl enable log2ram.service
 echo "Install and enable log2ram" >>/var/log/install.log
 ln -s /usr/local/bin/log2ram /etc/cron.hourly/log2ram
-
-# Put user scripts into /usr/local/sbin
-cp -rf /srv/post_install/* /usr/local/sbin
 
 # Move this. OK for now
 ln -s /usr/local/sbin/check-update.sh /etc/cron.daily/check-update.sh
@@ -157,8 +157,6 @@ netstat -tnap >> /var/log/netstat.txt
 
 # Reboot into the system
 echo "AllStar Asterisk install Complete, rebooting" >>/var/log/install.log
-
-
 
 /sbin/reboot
 
