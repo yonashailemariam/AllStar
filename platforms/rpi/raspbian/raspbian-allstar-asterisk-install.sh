@@ -41,6 +41,7 @@ apt-get install i2c-tools -y
 
 # Don't install init.d scripts
 # Ugly but effective
+# Move this to patch_asterisk and add Debian version test
 sed -i -e 's/debian_version/debian_version_7/g' /usr/src/astsrc-1.4.23-pre/asterisk/Makefile
 
 /srv/scripts/build_asterisk.sh
@@ -66,10 +67,6 @@ cp -rf /srv/sayip /usr/local/
 # cd /etc
 # patch </srv/patches/patch-rc.local
 
-# Moved to build_asterisk script
-# Add "AllStar Node Enabled" sound file
-# cp /srv/sounds/node_enabled.ulaw /var/lib/asterisk/sounds/rpt/
-
 # Start asterisk on boot
 cp /srv/systemd/asterisk.service /lib/systemd/system
 systemctl enable asterisk.service
@@ -77,7 +74,6 @@ cp /srv/systemd/updatenodelist.service /lib/systemd/system
 systemctl enable updatenodelist.service
 cp /srv/systemd/log2ram.service /lib/systemd/system
 systemctl enable log2ram.service
-
 
 # Check for updates once per day
 ln -fs /usr/local/sbin/check-update.sh /etc/cron.daily/check-update.sh

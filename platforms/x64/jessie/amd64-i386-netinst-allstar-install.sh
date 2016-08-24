@@ -35,12 +35,6 @@ apt-get install ntpdate -y
 ln -s /etc/network/if-up.d/ntpdate /etc/cron.hourly/ntpdate
 echo "Install ntpdate" >>/var/log/install.log
 
-# put rc.local back to default
-# Should be a simple copy
-cd /etc
-patch </srv/patches/patch-amd64-i386-stock-netinstall-rc.local
-echo "put rc.local back to default" >>/var/log/install.log
-
 #### End x86 stuff ####
 
 
@@ -67,6 +61,12 @@ ln -s /srv AllStar-master
 unzip master.zip
 rm AllStar-master
 echo "decompress master.zip" >>/var/log/install.log
+
+# put rc.local back to default
+# Should be a simple copy
+cd /etc
+patch </srv/patches/patch-amd64-i386-stock-netinstall-rc.local
+echo "put rc.local back to default" >>/var/log/install.log
 
 # install required
 /srv/scripts/required_libs.sh
@@ -111,19 +111,24 @@ echo "created /dev/dsp" >>/var/log/install.log
 # Put user scripts into /usr/local/sbin
 cp -rf /srv/post_install/* /usr/local/sbin
 
-# start update node list on boot
-cp /usr/src/astsrc-1.4.23-pre/allstar/rc.updatenodelist /usr/local/bin/rc.updatenodelist
-cp /srv/systemd/updatenodelist.service /lib/systemd/system
-systemctl enable updatenodelist.service
-echo "setup start update node list" >>/var/log/install.log
-
-# Start asterisk on boot
-cp /srv/systemd/asterisk.service /lib/systemd/system
-systemctl enable asterisk.service
-
-# Add asterisk to logrotate
-/srv/scripts/mk_logrotate_asterisk.sh
-echo "added asterisk to logrotate" >>/var/log/install.log
+codename=$(lsb_release -cs)
+if [[ $codename == 'jessie' ]]; then
+  echo "codename is Jessie, using systemd units"
+  # start update node list on boot
+  cp /usr/src/astsrc-1.4.23-pre/allstar/rc.updatenodelist /usr/local/bin/rc.updatenodelist
+  cp /srv/systemd/updatenodelist.service /lib/systemd/system
+  systemctl enable updatenodelist.service
+  echo "setup start update node list" >>/var/log/install.log
+  # Start asterisk on boot
+  cp /srv/systemd/asterisk.service /lib/systemd/system
+  systemctl enable asterisk.service
+elif [[ $codename == 'wheezy' ]]; then
+  echo "codename is Wheezy, using init scripts"
+  # Patch rc.local to start updatenodelist
+  # Should I be using different post install scripts?
+  # Should I modify the init scripts for safe asterisk?
+  # Is the world really round
+fi
 
 # Install Log2RAM
 cp /srv/scripts/log2ram /usr/local/bin
@@ -139,9 +144,6 @@ touch /var/tmp/update.old
 touch /etc/asterisk/firsttime
 
 echo "test -e /etc/asterisk/firsttime && /usr/local/sbin/firsttime" >>/root/.bashrc
-
-# Reboot into the system
-echo "AllStar Asterisk install Complete, rebooting" >>/var/log/install.log
 
 sleep 5
 
