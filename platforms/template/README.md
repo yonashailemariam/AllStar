@@ -40,7 +40,7 @@ Debian Bare Metal x86 installer (Current)
 
 http://tinyurl.com/x86-DIAL
 
-Debian Bare Metal Debian ARM amd64 and i386 installer (Release Candidate)
+Debian Bare Metal Debian amd64 and i386 installer (Release Candidate)
 
 http://tinyurl.com/amd64-i386-DIAL-RC1
 
@@ -50,7 +50,7 @@ http://tinyurl.com/rpi2-dial-V101
 
 Raspberry Pi 2/3 Raspbian disk image (Release Candidate)
 
-http://tinyurl.com/RA-DIAL-RC1
+http://tinyurl.com/DIAL-RAT-RC1
 
 Android IAX Client
 
