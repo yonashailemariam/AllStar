@@ -109,11 +109,11 @@ mask2cidr() {
 ISDEBX=0
 if [ -r /etc/debian_version ]
 then
-	uname -omv | grep -E 'Debian' > /dev/null 2>&1
-        if [ $? -eq 0 ]
-        then
+#	uname -omv | grep -E 'Debian' > /dev/null 2>&1
+#        if [ $? -eq 0 ]
+#        then
                 ISDEBX=1
-        fi
+#        fi
 fi
 
 ISLIMEY=0
