@@ -1,6 +1,6 @@
 #!/bin/sh
 
-cd /usr/local/sbin/sayip
+cd /usr/local/sayip
 
 modprobe snd_bcm2835 > /dev/null 2>&1
 amixer cset numid=3 1 > /dev/null 2>&1
