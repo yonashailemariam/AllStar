@@ -2,7 +2,7 @@
 
 # Get Asterisk
 cd /usr/src/astsrc-1.4.23-pre
-svn update http://svn.ohnosec.org/svn/projects/allstar/astsrc-1.4.23-pre/trunk astsrc-1.4.23-pre
+svn update .
 
 # grab the svn version number and put it where asterisk/Makefile expects it.
 cd /usr/src/astsrc-1.4.23-pre
@@ -12,7 +12,7 @@ svnversion >asterisk/.version
 cd /usr/src/astsrc-1.4.23-pre
 rm -rf zaptel
 
-Apply updates
+# Apply updates
 cd /usr/src/astsrc-1.4.23-pre/asterisk
 make
 make install
