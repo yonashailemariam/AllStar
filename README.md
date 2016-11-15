@@ -34,6 +34,9 @@ http://tinyurl.com/x86-DIAL
 
 Debian Bare Metal Debian amd64 and i386 installer (Release Candidate)
 
+http://dvswitch.org/files/DIAL/amd64-i386-DIAL-RC1.tar.gz
+
+Alternate:
 http://tinyurl.com/amd64-i386-DIAL-RC1
 
 
@@ -43,6 +46,9 @@ http://tinyurl.com/rpi2-dial-V101
 
 Raspberry Pi 2/3 Raspbian disk image (Release Candidate)
 
+http://dvswitch.org/files/DIAL/RAT_RC1.tar.gz
+
+Alternate:
 http://tinyurl.com/DIAL-RAT-RC1
 
 
