@@ -1,1 +1,0 @@
-mkimage -A arm -O linux -T script -C none -a 0x00000000 -e 0x00000000 -n "RPi2 Boot Script" -d boot.scr.txt boot.scr
