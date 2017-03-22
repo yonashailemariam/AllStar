@@ -1,3 +1,0 @@
-apt-get install libi2c-dev -y
-echo "libi2c-dev" >>/var/log/update.log
-
