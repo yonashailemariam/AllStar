@@ -1,1 +1,12 @@
 https://askubuntu.com/questions/252056/should-i-use-tasksel-tasks-in-apt-or-install-regular-metapackages
+
+tasksel install lamp-server will look for a task called "lamp-server" in one of its configuration files under /usr/share/tasksel/**/*.desc:
+
+Search the configuration files for a "Task:" field named "lamp-server".
+Check if all prerequisites are available ("Key:" field) and remember them if not installed.
+Choose method to select packages ("Packages:" field). If this ist "list" simply install following packages by name.
+Read all following package names and pass it to previously selected method to generate package names.
+Look for /usr/lib/tasksel/info/lamp-server.preinst. If it exists execute this script.
+Install packages with apt-get using following command:
+debconf-apt-progress -- apt-get -q -y -o APT::Install-Recommends=...
+Look for /usr/lib/tasksel/info/lamp-server.postinst. If it exists execute this script
