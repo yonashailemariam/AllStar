@@ -1,6 +1,6 @@
-Task: AllStarLink-Install
+Task: allstarlink
 Section: server
-Description: Install AllStarLink
+Description: AllStarLink
  Install AllStarLink
 Key:
 Packages: list
