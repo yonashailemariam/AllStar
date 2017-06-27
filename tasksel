@@ -10,3 +10,7 @@ Look for /usr/lib/tasksel/info/lamp-server.preinst. If it exists execute this sc
 Install packages with apt-get using following command:
 debconf-apt-progress -- apt-get -q -y -o APT::Install-Recommends=...
 Look for /usr/lib/tasksel/info/lamp-server.postinst. If it exists execute this script
+
+
+
+https://lists.debian.org/debian-boot/2004/12/msg01010.html
