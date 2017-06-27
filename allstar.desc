@@ -27,5 +27,6 @@ Packages: list
  git
  dkms
  debhelper
+ net-tools
 Test-new-install: mark show
 Relevance: 1
