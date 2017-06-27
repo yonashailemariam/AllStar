@@ -2,8 +2,10 @@ Task: my-utils
 Relevance: 2
 Description: Common Utilities
  Install commonly required system utilities
+Test-new-install: mark show
 Key:
 Packages: list
  tree
  nmap
 Section: user
+
