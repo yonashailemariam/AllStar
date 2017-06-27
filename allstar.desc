@@ -1,11 +1,31 @@
-Task: my-utils
-Relevance: 2
-Description: Common Utilities
- Install commonly required system utilities
-Test-new-install: mark show
-Key:
-task-asl-server
-Packages: list
- tree
- nmap
+Task: AllStarLink-Install
 Section: server
+Description: Install AllStarLink
+ Install AllStarLink
+Key:
+Packages: list
+ libusb-dev
+ libnewt-dev
+ libeditline0
+ libncurses5-dev
+ bison
+ libssl-dev
+ libasound2-dev
+ libcurl4-gnutls-dev
+ php5-cli
+ libiksemel-dev
+ libvorbis-dev
+ curl
+ sox
+ usbutils
+ alsa-utils
+ bc
+ dnsutils
+ g++
+ make
+ build-essential
+ git
+ dkms
+ debhelper
+Test-new-install: mark show
+Relevance: 8
